@@ -200,9 +200,9 @@ void EPlacer_2D::binInitialization()
     }
     if (!isUpdate)
     {
-        binDimension.x = binDimension.y = 1024; //!
+        // binDimension.x = binDimension.y = 1024; //!
     }
-    binDimension.x = binDimension.y = 2048; //!
+    binDimension.x = binDimension.y = 1024; //!
 
     cout << BLUE << "Bin dimension: " << binDimension << "\ncoreRegion width: " << coreRegionWidth << "\ncoreRegion height: " << coreRegionHeight << RESET << endl;
 
@@ -424,6 +424,8 @@ void EPlacer_2D::wirelengthGradientUpdate()
         baseWirelengthCoef.x *= temp;                                           //!(1/8.0wb)*(1/10^(k*tau+b)), where k=20/9 and b=-11/9
         baseWirelengthCoef.y *= temp;
     }
+
+
 
     invertedGamma = baseWirelengthCoef;
 
@@ -656,7 +658,7 @@ void EPlacer_2D::totalGradientUpdate()
         // float preconditioner = 1 / max(1.0f, (connectedNetNum + lambda * charge));  //need to check for +w(i,j)
 
         float preconditioner = 1 / max(1.0f, (connectedNetNum + lambda * charge));// + beta * TotalConnectedPinsNum )); //need to check for +w(i,j)
-        // float preconditioner = 1 / max(1.0f, (connectedNetNum + beta * TotalConnectedPinsNum + displacementFactor)); //need to check for +w(i,j)
+        // float preconditioner = 1 / max(1.0f, (connectedNetNum + beta * TotalConnectedPinsNum * 10)); //need to check for +w(i,j)
 
         // float preconditioner = 1 / max(1.0f, (connectedNetNum + lambda * charge +1)); // need to check for +w(i,j)
         // preconditionedGradient[idx].x = preconditioner * placer->totalGradient[idx].x;
@@ -797,8 +799,8 @@ void EPlacer_2D::penaltyFactorInitilization()
         denominator += fabs(densityGradient[i].y);
     }
 
-    lambda = float_div(numerator, denominator);
-    lambda = 1e-7;
+    // lambda = float_div(numerator, denominator);
+    lambda = 1e-5;
     cout << "Initial penalty factor: " << lambda << endl;
 }
 
@@ -859,8 +861,9 @@ void EPlacer_2D::updatePenaltyFactorbyTNS(int iter_power)
     {
         multiplier = PENALTY_MULTIPLIER_LOWERBOUND;
     }
-    lambda *= pow(multiplier, iter_power); //
-        
+    // lambda *= pow(multiplier, iter_power); //
+    lambda *= multiplier;
+
     lastTNS = curTNS;
 }
 

@@ -12,7 +12,7 @@
 #include "optutils.hpp"
 #include "Eigen/Dense"
 
-#define MAX_ITERATION 20
+#define MAX_ITERATION 200
 #define IGNORE_ITERATION 20
 #define BKTRK_EPS 0.95
 
