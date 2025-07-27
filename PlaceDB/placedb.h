@@ -151,6 +151,8 @@ public:
     void showRows();
 
     void outputBookShelf(string, bool);
+    void outputDEF(string, string);
+
 
     int y2RowIndex(float);
     bool isConnected(Module *, Module *);

@@ -9,8 +9,8 @@
 
 #define DELTA_HPWL_REF 32687552
 #define PENALTY_MULTIPLIER_BASE 1.05 //1.05, equals PENALTY_MULTIPLIER_UPPERBOUND, follow Xplace(param_scheduler.py, step_density_weight()) and RePlAce
-#define PENALTY_MULTIPLIER_UPPERBOUND 1.01
-#define PENALTY_MULTIPLIER_LOWERBOUND 0.99
+#define PENALTY_MULTIPLIER_UPPERBOUND 1.005
+#define PENALTY_MULTIPLIER_LOWERBOUND 0.995
 
 enum PLACEMENT_STAGE
 {
@@ -129,7 +129,7 @@ public:
         globalDensityOverflow = 0;
         invertedGamma.SetZero();
         lambda = 0.0;
-        beta = 5e-5;  //efficient tdp say 2.5e-5 , but we use 1e-6 ~ 1e-7
+        beta = 1e-4;  //efficient tdp say 2.5e-5 
         displacementFactor = 0.01;
         lastHPWL = 0.0;
 

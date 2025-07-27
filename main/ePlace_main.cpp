@@ -13,6 +13,7 @@ using namespace std;
 int main(int argc, char *argv[])
 {
     BookshelfParser parser;
+    string inital_def_path ="";
     PlaceDB *placedb = new PlaceDB();
     gArg.Init(argc, argv);
 
@@ -70,7 +71,10 @@ int main(int argc, char *argv[])
 
             cout << "    Plot path: " << plotPath << endl;
         }
-        parser.ReadFile(argv[2], *placedb);
+        string auxPath = string(argv[2]);
+        parser.ReadFile(auxPath, *placedb);
+        inital_def_path = auxPath.substr(0, auxPath.rfind(".")) + ".def";
+
     }
     placedb->showDBInfo();
     string plPath;
@@ -108,7 +112,7 @@ int main(int argc, char *argv[])
 
     EPlacer_2D *eplacer = new EPlacer_2D(placedb);
     OpenroadInterface* openroadInterface = new OpenroadInterface(placedb);
-    string initialDEFPath = "./testcase/aes_cipher_top/aes_cipher_top.def";
+    string initialDEFPath = inital_def_path ;//"./testcase/aes_cipher_top/aes_cipher_top.def";
     string openroadPath = "/usr/bin/openroad";
     string tclPath = "./eplace_sta.tcl";
     string staReportPath = "./eplace_sta_report.rpt";
@@ -245,5 +249,6 @@ int main(int argc, char *argv[])
         PLOTTING::plotCurrentPlacement("Detailed placement result", placedb);
 
         placedb->outputBookShelf("eDP",true);
+        placedb->outputDEF("eDP",inital_def_path);
     }
 }
