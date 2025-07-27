@@ -832,8 +832,8 @@ void PlaceDB::outputDEF(string suffix,string init_def_path){
                 }
 
                 out <<"- "<< nodeName << " " << nodetype << " + PLACED ( "
-                        << module->getLocation().x << " " << module->getLocation().y << " ) N ;\n";
-               
+                        << module->getLL_2D().x << " " << module->getLL_2D().y<< " ) N ;\n";
+                        
             }
             continue;
         }
