@@ -229,6 +229,7 @@ int main(int argc, char *argv[])
             PLOTTING::plotCurrentPlacement("Cell legalized result", placedb);
 
             placedb->outputBookShelf("eLG",true);
+            placedb->outputDEF("eLP",inital_def_path);
         }
         else
         {
