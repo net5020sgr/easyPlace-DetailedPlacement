@@ -371,7 +371,10 @@ double AbacusLegalizer::placeRow(Module *cell, int bestRow, bool trial)
     {
         AbacusCellCluster newCluster;
         newCluster.index = tempRowPointer->clusters.size();                                                //! 0 for the first cluster
-        newCluster.x = int((int(cell->getLL_2D().x + 0.5) / tempRowPointer->step) * tempRowPointer->step); // !! need to make sure that position of clusters align with sites!!!!
+        // newCluster.x = int((int(cell->getLL_2D().x + 0.5) / tempRowPointer->step) * tempRowPointer->step); // !! need to make sure that position of clusters align with sites!!!!
+        double siteIdx = std::round( (cell->getLL_2D().x - tempRowPointer->start.x) / tempRowPointer->step );
+        newCluster.x   = siteIdx * tempRowPointer->step + tempRowPointer->start.x;
+
         //? site step: double instead of int, potential precision problems? although step is almost always 1 (never seen any case in which step != 1 so far)
         //! boundary check
         if (float_less(newCluster.x, tempRowPointer->start.x))
@@ -441,7 +444,10 @@ void AbacusRow::collapse(int clusterIndex)
     assert(clusterIndex < clusters.size());
     AbacusCellCluster &c = clusters[clusterIndex];
     // place c
-    c.x = (int)(1.0 * c.q / c.e / step) * step;
+    // c.x = (int)(1.0 * c.q / c.e / step) * step;
+    double siteIdx = std::round( (c.q / c.e - start.x) / step );
+    c.x = siteIdx * step + start.x;
+    
     if (float_less(c.x, start.x))
     {
         c.x = start.x;

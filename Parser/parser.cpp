@@ -121,6 +121,7 @@ int BookshelfParser::ReadSCLFile(string file, PlaceDB &db)
 		else if (strcmp(tmp4, "Numsites") == 0 || strcmp(tmp4, "NumSites") == 0)
 		{
 			double subOrigin = atof(tmp3); //! subrowOrigin
+			cout << "get subrow origin: " << subOrigin << endl;
 			double numSites = atof(tmp6);
 			// initialize interval
 			vSites.back().intervals.push_back(Interval(subOrigin, (numSites * SiteWidth) + subOrigin));
