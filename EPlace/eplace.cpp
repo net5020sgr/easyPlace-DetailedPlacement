@@ -200,9 +200,9 @@ void EPlacer_2D::binInitialization()
     }
     if (!isUpdate)
     {
-        // binDimension.x = binDimension.y = 1024; //!
+        binDimension.x = binDimension.y = 1024; //!
     }
-    binDimension.x = binDimension.y = 1024; //!
+    // binDimension.x = binDimension.y = 1024; //!
 
     cout << BLUE << "Bin dimension: " << binDimension << "\ncoreRegion width: " << coreRegionWidth << "\ncoreRegion height: " << coreRegionHeight << RESET << endl;
 
