@@ -39,7 +39,7 @@ estimate_parasitics -placement
 
 report_tns
 report_wns
-report_checks -slack_max 0 -endpoint_count 10000 -unique 
+report_checks -slack_max 0 -endpoint_count 10000 
 exit )";
 
     tclFile.close();
@@ -100,6 +100,7 @@ void OpenroadInterface::analyzeSTAReport()
             std::istringstream iss(line);
             std::string tns_str;
             iss >> tns_str >> TNS; // Extract TNS value
+            db->setTNS(TNS);
             continue;
         }
         std::smatch match;

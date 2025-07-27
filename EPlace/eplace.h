@@ -7,10 +7,11 @@
 #include "fft.h"
 // #include "plot.h"
 
-#define DELTA_HPWL_REF 32687552
+#define DELTA_HPWL_REF 320000
+#define DELTA_TNS_REF 100000
 #define PENALTY_MULTIPLIER_BASE 1.05 //1.05, equals PENALTY_MULTIPLIER_UPPERBOUND, follow Xplace(param_scheduler.py, step_density_weight()) and RePlAce
-#define PENALTY_MULTIPLIER_UPPERBOUND 1.005
-#define PENALTY_MULTIPLIER_LOWERBOUND 0.995
+#define PENALTY_MULTIPLIER_UPPERBOUND 1.02
+#define PENALTY_MULTIPLIER_LOWERBOUND 0.98
 
 enum PLACEMENT_STAGE
 {
@@ -115,6 +116,11 @@ public:
     float beta; 
 
     double lastHPWL;
+    double curTNS;
+    void synccurTNS() { curTNS = abs(db->getTNS()); } // for nesterov optimization, used to set curTNS in nesterov.hpp
+    float lastTNS;
+    bool judge_tns;
+    bool getJudgeTNS() const{ return ( curTNS < 0.95 * lastTNS || ( (curTNS > 1.03 * lastTNS) &&(curTNS < 1.06 * lastTNS) )) ; } //
 
     int placementStage;
     int mGPIterationCount;
@@ -129,9 +135,11 @@ public:
         globalDensityOverflow = 0;
         invertedGamma.SetZero();
         lambda = 0.0;
-        beta = 1e-4;  //efficient tdp say 2.5e-5 
-        displacementFactor = 0.01;
+        beta = 2.5e-5 ;  //efficient tdp say 2.5e-5 
+        displacementFactor = 0.05;
         lastHPWL = 0.0;
+        lastTNS = 0.0;
+        judge_tns = false;
 
         ePlaceStdCellArea = 0;
         ePlaceMacroArea = 0;
@@ -172,6 +180,7 @@ public:
 
     void penaltyFactorInitilization(); // initialize lambda 0, see ePlace paper equation 35
     void updatePenaltyFactor();
+    void updatePenaltyFactorbyTNS(int iter_power);
     //! be aware of density scaling and local smooth in density calculation
 
     void switch2FillerOnly();

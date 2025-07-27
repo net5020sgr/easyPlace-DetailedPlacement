@@ -12,8 +12,8 @@
 #include "optutils.hpp"
 #include "Eigen/Dense"
 
-#define MAX_ITERATION 100
-#define IGNORE_ITERATION 40
+#define MAX_ITERATION 20
+#define IGNORE_ITERATION 20
 #define BKTRK_EPS 0.95
 
 template <typename T>
@@ -74,10 +74,16 @@ bool EplaceNesterovOpt<T>::stop_condition()
     float cGPtargetOverflow = 0.07f;
 
     bool judge;
+    bool judge_ov,judge_slack, judge_max;
     switch (placer->placementStage)
     {
     case mGP:
-        judge = (placer->globalDensityOverflow < targetOverflow ) || (iter_count > MAX_ITERATION);
+        judge_ov = (placer->globalDensityOverflow < targetOverflow ) && (iter_count > IGNORE_ITERATION);
+        judge_slack = false ;//(iter_count > IGNORE_ITERATION) && ( placer->getJudgeTNS()); // 0.1 is a magic number, see RePlAce code opt.cpp line 1523
+        judge_max = (iter_count > MAX_ITERATION);
+        judge = judge_ov || judge_slack || judge_max;
+        // cout << "judge_ov: " << judge_ov << ", judge_slack
+        
         // judge = (iter_count > IGNORE_ITERATION);
         if (judge)
         {
@@ -97,31 +103,7 @@ bool EplaceNesterovOpt<T>::stop_condition()
         exit(0);
     }
 
-    // if (placer->placementStage == mGP)
-    // {
-    //     bool judge = (placer->globalDensityOverflow < targetOverflow) || (iter_count > MAX_ITERATION);
-    //     if (judge)
-    //     {
-    //         placer->mGPIterationCount = iter_count;
-    //     }
-    //     // return (placer->globalDensityOverflow < targetOverflow) || (iter_count > MAX_ITERATION);
-    //     return judge;
-    // }
-    // else if (placer->placementStage == FILLERONLY)
-    // {
-    //     return iter_count >= 20;
-    // }
-    // else if (placer->placementStage == cGP)
-    // {
-    //     return (placer->globalDensityOverflow < cGPtargetOverflow) || (iter_count > MAX_ITERATION);
-    // }
-    // else
-    // {
-    //     cerr << "INCORRECT PLACEMENT STAGE!\n";
-    //     exit(0);
-    // }
-
-    // return (placer->globalDensityOverflow < targetOverflow) || (iter_count > MAX_ITERATION);
+   
 }
 
 template <typename T>
@@ -129,6 +111,18 @@ void EplaceNesterovOpt<T>::opt_step()
 {
     printf("Iter %d\n", iter_count);
 
+    if (isTiming && iter_count % 5 == 0){
+        // output def and run sta
+        cout << "isTiming" << endl;
+        string staDEFPath = "./sta_iter" + to_string(iter_count) + ".def";
+        openroadInterface->outputSTADEF(staDEFPath);
+        openroadInterface->runSTA(staDEFPath);
+        openroadInterface->analyzeSTAReport();
+        placer->synccurTNS();
+    }
+
+
+    
     if (gArg.CheckExist("bb"))
     {
         opt_step_bb();
@@ -142,6 +136,9 @@ void EplaceNesterovOpt<T>::opt_step()
         opt_step_vanilla();
     }
     placer->updatePenaltyFactor();
+    if (isTiming && iter_count % 5 == 0){
+        placer->updatePenaltyFactorbyTNS(5);
+    }
     placer->showInfo();
 
     switch (placer->placementStage)
@@ -168,18 +165,8 @@ void EplaceNesterovOpt<T>::opt_step()
         cerr << "INCORRECT PLACEMENT STAGE!\n";
         exit(0);
     }
-
-    if (isTiming && iter_count % 5 == 0){
-        // output def and run sta
-        cout << "isTiming" << endl;
-        string staDEFPath = "./sta_iter" + to_string(iter_count) + ".def";
-        openroadInterface->outputSTADEF(staDEFPath);
-        openroadInterface->runSTA(staDEFPath);
-        openroadInterface->analyzeSTAReport();
-    }
-
-
     iter_count++;
+
 }
 
 // template <typename T>
@@ -195,16 +182,17 @@ void EplaceNesterovOpt<T>::init()
     cur_iter.main_solution = placer->getPosition();
     printf("main length %d\n", cur_iter.main_solution.size());
     
-    if (isTiming){
-        cout << "isTiming" << endl;
-        string staDEFPath = "./sta_iter" + to_string(iter_count) + ".def";
-        openroadInterface->outputSTADEF(staDEFPath);
-        openroadInterface->runSTA(staDEFPath);
-        openroadInterface->analyzeSTAReport();
-    }
-    else {
-        cout << "not isTiming" << endl;
-    }
+    // if (isTiming){
+    //     cout << "isTiming" << endl;
+    //     string staDEFPath = "./sta_iter" + to_string(iter_count) + ".def";
+    //     openroadInterface->outputSTADEF(staDEFPath);
+    //     openroadInterface->runSTA(staDEFPath);
+    //     openroadInterface->analyzeSTAReport();
+    //     placer->synccurTNS();
+    // }
+    // else {
+    //     cout << "not isTiming" << endl;
+    // }
 }
 
 template <typename T>

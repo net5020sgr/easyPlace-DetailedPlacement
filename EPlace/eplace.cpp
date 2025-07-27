@@ -202,7 +202,7 @@ void EPlacer_2D::binInitialization()
     {
         binDimension.x = binDimension.y = 1024; //!
     }
-    // binDimension.x = binDimension.y = 2048; //!
+    binDimension.x = binDimension.y = 2048; //!
 
     cout << BLUE << "Bin dimension: " << binDimension << "\ncoreRegion width: " << coreRegionWidth << "\ncoreRegion height: " << coreRegionHeight << RESET << endl;
 
@@ -774,6 +774,8 @@ void EPlacer_2D::setPosition(vector<VECTOR_3D> modulePositions)
 void EPlacer_2D::penaltyFactorInitilization()
 {
     lastHPWL = db->calcHPWL();
+    
+
     float denominator = 0;
     float numerator = 0;
 
@@ -784,8 +786,8 @@ void EPlacer_2D::penaltyFactorInitilization()
     {
         numerator += fabs(wirelengthGradient[i].x);
         numerator += fabs(wirelengthGradient[i].y);
-        // numerator += fabs(beta * p2pattractionGradient[i].x);
-        // numerator += fabs(beta * p2pattractionGradient[i].y);
+        numerator += fabs(beta * p2pattractionGradient[i].x);
+        numerator += fabs(beta * p2pattractionGradient[i].y);
         denominator += fabs(densityGradient[i].x);
         denominator += fabs(densityGradient[i].y);
     }
@@ -796,7 +798,7 @@ void EPlacer_2D::penaltyFactorInitilization()
     }
 
     lambda = float_div(numerator, denominator);
-    lambda = 1e-5;
+    lambda = 1e-7;
     cout << "Initial penalty factor: " << lambda << endl;
 }
 
@@ -825,15 +827,41 @@ void EPlacer_2D::updatePenaltyFactor()
         multiplier = PENALTY_MULTIPLIER_LOWERBOUND;
     }
     lambda *= multiplier;
-    // if (penaltyFactor < 0.00001)
-    // {
-    //     penaltyFactor = 0.00001;
-    // }
-    // else if (penaltyFactor > 10.0)
-    // {
-    //     penaltyFactor = 10.0;
-    // }
+    
+
+
+
     lastHPWL = curHPWL;
+}
+
+void EPlacer_2D::updatePenaltyFactorbyTNS(int iter_power)
+{
+    // printf("penalty factor = %.10f\n", lambda);
+    // curTNS = abs(db->getTNS());
+    float multiplier;
+    double deltaTNS = curTNS - lastTNS;
+    
+    if ((deltaTNS) < 0.0) //?? what if (curHPWL - lastHPWL)<0????? never considered before 2024.5.19
+    {
+        // cout << "multiplier is: " << pow(PENALTY_MULTIPLIER_BASE, (-(deltaHPWL) / DELTA_HPWL_REF + 1.0)) << " when < 0" << endl;
+        multiplier = PENALTY_MULTIPLIER_UPPERBOUND;
+    }
+    else
+    {
+        multiplier = pow(PENALTY_MULTIPLIER_BASE, (-(deltaTNS) / DELTA_TNS_REF + 1.0)); // see ePlace-3D code opt.cpp line 1523
+    }
+
+    if (float_greater(multiplier, PENALTY_MULTIPLIER_UPPERBOUND))
+    {
+        multiplier = PENALTY_MULTIPLIER_UPPERBOUND;
+    }
+    if (float_less(multiplier, PENALTY_MULTIPLIER_LOWERBOUND))
+    {
+        multiplier = PENALTY_MULTIPLIER_LOWERBOUND;
+    }
+    lambda *= pow(multiplier, iter_power); //
+        
+    lastTNS = curTNS;
 }
 
 void EPlacer_2D::switch2FillerOnly()
@@ -857,7 +885,9 @@ void EPlacer_2D::showInfo()
 {
     cout << "Overflow: " << globalDensityOverflow << endl;
     cout << "penalty factor: " << fixed << lambda << endl;
-    cout << "HPWL: " << lastHPWL << endl
+    cout << "HPWL: " << lastHPWL << endl;
+    cout << "curTNS: " << curTNS << endl;
+    cout << "lastTNS: " << lastTNS << endl
          << endl;
 }
 

@@ -51,6 +51,7 @@ public:
         chipRegion = CRect();
         totalRowArea = 0;
         nodesLocationRegister.clear();
+        TNS = 100000;
     };
     int layerCount;  // how many layers? this is for 3dic
     int moduleCount; // number of modules
@@ -63,6 +64,7 @@ public:
     CRect chipRegion;   // Chip Region is obtained with coreRegion and all terminal locations. adapect1 is a good example. This should only be used for plot.
     float totalRowArea; //! area of all placement rows, equal or less than coreRegion area, usually equals coreRegion area. calculated in setCoreRegion
 
+    float TNS;
     //! dbXxs: vector for storing Xxs
     vector<Module *> dbNodes; // nodes include std cells and macros
     vector<Module *> dbTerminals;
@@ -100,7 +102,7 @@ public:
         {
             return it->second;
         }
-        return 1.0f; // or throw an exception
+        return 10.0f; // or throw an exception
     }
     void updateP2Pweight(string node1name, string pin1name, string node2name, string pin2name, float slack , float WNS)
     {
@@ -108,7 +110,7 @@ public:
         auto [node2, pin2] = NodePinMap[make_pair(node2name, pin2name)];
         auto curP2P = make_pair(pin1, pin2);
         float curWeight = getP2Pweight(pin1, pin2); // check if pin1 and pin2 exist
-        P2PWeightMap[curP2P] = curWeight + abs(slack) / WNS; // insert or update
+        P2PWeightMap[curP2P] = curWeight + 0.2 * abs(slack) / WNS; // insert or update
     }
 
 
@@ -132,6 +134,9 @@ public:
     CRect getOptimialRegion(Module *); // for legalized results, normally called in detailed placement
 
     POS_3D getValidModuleCenter_2D(Module *module, float x, float y);
+
+    float getTNS()const{ return abs(TNS); }
+    void setTNS(float tns) { TNS = abs(tns); }
 
     double calcHPWL();
     double calcWA_Wirelength_2D(VECTOR_2D);
