@@ -39,7 +39,7 @@ estimate_parasitics -placement
 
 report_tns
 report_wns
-report_checks -slack_max 0 -endpoint_count 10000 
+report_checks -slack_max 0 -endpoint_count 10000 -unique 
 exit )";
 
     tclFile.close();

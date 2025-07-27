@@ -110,7 +110,7 @@ public:
         auto [node2, pin2] = NodePinMap[make_pair(node2name, pin2name)];
         auto curP2P = make_pair(pin1, pin2);
         float curWeight = getP2Pweight(pin1, pin2); // check if pin1 and pin2 exist
-        P2PWeightMap[curP2P] = curWeight + 0.2 * abs(slack) / WNS; // insert or update
+        P2PWeightMap[curP2P] = curWeight + 0.5 * abs(slack) / WNS; // insert or update
     }
 
 

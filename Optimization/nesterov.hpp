@@ -12,7 +12,7 @@
 #include "optutils.hpp"
 #include "Eigen/Dense"
 
-#define MAX_ITERATION 400
+#define MAX_ITERATION 30
 #define IGNORE_ITERATION 20
 #define BKTRK_EPS 0.95
 
@@ -111,7 +111,7 @@ void EplaceNesterovOpt<T>::opt_step()
 {
     printf("Iter %d\n", iter_count);
 
-    if (isTiming && iter_count % 15 == 0){
+    if (isTiming && iter_count % 5 == 0){
         // output def and run sta
         cout << "isTiming" << endl;
         string staDEFPath = "./sta_iter" + to_string(iter_count) + ".def";
@@ -136,7 +136,7 @@ void EplaceNesterovOpt<T>::opt_step()
         opt_step_vanilla();
     }
     placer->updatePenaltyFactor();
-    if (isTiming && iter_count % 15 == 0){
+    if (isTiming && iter_count % 5 == 0){
         placer->updatePenaltyFactorbyTNS(5);
     }
     placer->showInfo();
