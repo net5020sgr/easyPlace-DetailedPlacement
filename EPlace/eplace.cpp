@@ -99,6 +99,7 @@ void EPlacer_2D::fillerInitialization()
 
     for (int i = 0; i < nodeCount; i++)
     {
+        // iwant to do sth here
         nodeArea[i] = db->dbNodes[i]->getArea();
         // use this one below if we want no problems:
         // nodeArea[i]=db->dbNodes[i]->calcArea();
@@ -657,8 +658,8 @@ void EPlacer_2D::totalGradientUpdate()
         float TotalConnectedPinsNum = static_cast<float>(curNodeOrFiller->getTotalConnectedPinsNum());
         // float preconditioner = 1 / max(1.0f, (connectedNetNum + lambda * charge));  //need to check for +w(i,j)
 
-        // float preconditioner = 1 / max(1.0f, (connectedNetNum + lambda * charge));// + beta * TotalConnectedPinsNum )); //need to check for +w(i,j)
-        float preconditioner = 1 / max(1.0f, (connectedNetNum + beta * TotalConnectedPinsNum * 10)); //need to check for +w(i,j)
+        float preconditioner = 1 / max(1.0f, (connectedNetNum + lambda * charge));// + beta * TotalConnectedPinsNum )); //need to check for +w(i,j)
+        // float preconditioner = 1 / max(1.0f, (connectedNetNum + lambda * charge + beta * TotalConnectedPinsNum )); //need to check for +w(i,j)
 
         // float preconditioner = 1 / max(1.0f, (connectedNetNum + lambda * charge +1)); // need to check for +w(i,j)
         // preconditionedGradient[idx].x = preconditioner * placer->totalGradient[idx].x;
@@ -691,8 +692,12 @@ void EPlacer_2D::totalGradientUpdate()
             totalGradient[index].y = preconditioner * (lambda * densityGradient[index].y - wirelengthGradient[index].y - beta * p2pattractionGradient[index].y - displacementFactor * displacementGradient[index].y);
             
             // if (curNodeOrFiller->name.find("reg") != string::npos)  {
-            //     totalGradient[index].x  /= 10;  
-            //     totalGradient[index].y  /= 10;
+            //     totalGradient[index].x  /= 1000;  
+            //     totalGradient[index].y  /= 1000;
+            // }
+            // if (curNodeOrFiller->name.find("reg") != string::npos)  {
+            //     totalGradient[index].x  = 0;  
+            //     totalGradient[index].y  = 0;
             // }
             // totalGradient[index].x = preconditioner * (- wirelengthGradient[index].x - beta * p2pattractionGradient[index].x - displacementFactor * displacementGradient[index].x);
             // totalGradient[index].y = preconditioner * (- wirelengthGradient[index].y - beta * p2pattractionGradient[index].y - displacementFactor * displacementGradient[index].y);
@@ -789,7 +794,12 @@ void EPlacer_2D::penaltyFactorInitilization()
     int nodeAndFillerCount = densityGradient.size();
 
     for (int i = 0; i < nodeCount; i++)
+    
     {
+        // if (ePlaceNodesAndFillers[i]->name.find("reg") != string::npos)  {
+        //     continue;
+        // }
+
         numerator += fabs(wirelengthGradient[i].x);
         numerator += fabs(wirelengthGradient[i].y);
         numerator += fabs(beta * p2pattractionGradient[i].x);
@@ -803,8 +813,8 @@ void EPlacer_2D::penaltyFactorInitilization()
         denominator += fabs(densityGradient[i].y);
     }
 
-    // lambda = float_div(numerator, denominator);
-    lambda = 0;
+    lambda = float_div(numerator, denominator);
+    // lambda = 5e-6;
     cout << "Initial penalty factor: " << lambda << endl;
 }
 
@@ -845,7 +855,7 @@ void EPlacer_2D::updatePenaltyFactorbyTNS(int iter_power)
     // printf("penalty factor = %.10f\n", lambda);
     // curTNS = abs(db->getTNS());
     float multiplier;
-    double deltaTNS = curTNS - lastTNS;
+    double deltaTNS = abs(curTNS) - abs(lastTNS);
     
     if ((deltaTNS) < 0.0) //?? what if (curHPWL - lastHPWL)<0????? never considered before 2024.5.19
     {
