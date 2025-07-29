@@ -10,9 +10,4 @@ rm eplace_sta.tcl
 
 
 
-run.sh:
-# -> testcase/<design_name>/...
-./cadc1019 aes_cipher_top #only do buffering , NO legaize, DP, SA
-./eplace_run.sh
-(optional) openroad repair_timing.tcl #output design_name.def
-(optional) ./make_changelist.sh 
+
