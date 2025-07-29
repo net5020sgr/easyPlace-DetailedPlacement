@@ -15,6 +15,7 @@ source ./ASAP7/setRC.tcl
 estimate_parasitics -placement
 
 
+
 # 5. 詳細配置
 puts "Running detail placement..."
 

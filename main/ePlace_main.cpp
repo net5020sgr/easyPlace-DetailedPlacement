@@ -194,7 +194,7 @@ int main(int argc, char *argv[])
         }
     }
 
-    placedb->outputBookShelf("eGP",false); // output, files will be used for legalizers such as ntuplace3
+    placedb->outputBookShelf("eGP",true); // output, files will be used for legalizers such as ntuplace3
 
     if (!gArg.CheckExist("noLegal"))
     {
@@ -249,7 +249,7 @@ int main(int argc, char *argv[])
         cout << "HPWL after detailed placement: " << int(placedb->calcHPWL()) << endl;
         PLOTTING::plotCurrentPlacement("Detailed placement result", placedb);
 
-        placedb->outputBookShelf("eDP",true);
+        placedb->outputBookShelf("eDP",false);
         placedb->outputDEF("eDP",inital_def_path);
     }
 }

@@ -511,6 +511,9 @@ void EPlacer_2D::displacementGradientUpdate()
 
         displacementGradient[index].x = curCenter.x - initialCenter.x;
         displacementGradient[index].y = curCenter.y - initialCenter.y;
+        // float plateau = pow (540 ,2);
+        // displacementGradient[index].x = 4 *pow((curCenter.x - initialCenter.x),3)/plateau ;
+        // displacementGradient[index].y = 4 *pow((curCenter.y - initialCenter.y),3)/plateau ;
         
         index++;
     }
@@ -655,11 +658,12 @@ void EPlacer_2D::totalGradientUpdate()
         // printf("Connected net num:%d, Pin count:%d\n",connectedNetNum,placer->ePlaceNodesAndFillers[idx]->modulePins.size());
         // assert(connectedNetNum == placer->ePlaceNodesAndFillers[idx]->modulePins.size());
         float charge = curNodeOrFiller->getArea();
+        // cout << "charge: " << charge << endl;
         float TotalConnectedPinsNum = static_cast<float>(curNodeOrFiller->getTotalConnectedPinsNum());
         // float preconditioner = 1 / max(1.0f, (connectedNetNum + lambda * charge));  //need to check for +w(i,j)
 
-        float preconditioner = 1 / max(1.0f, (connectedNetNum + lambda * charge));// + beta * TotalConnectedPinsNum )); //need to check for +w(i,j)
-        // float preconditioner = 1 / max(1.0f, (connectedNetNum + lambda * charge + beta * TotalConnectedPinsNum )); //need to check for +w(i,j)
+        // float preconditioner = 1 / max(1.0f, (connectedNetNum + lambda * charge));// + beta * TotalConnectedPinsNum )); //need to check for +w(i,j)
+        float preconditioner = 1 / max(1.0f, (connectedNetNum + lambda * charge + beta * TotalConnectedPinsNum )); //need to check for +w(i,j)
 
         // float preconditioner = 1 / max(1.0f, (connectedNetNum + lambda * charge +1)); // need to check for +w(i,j)
         // preconditionedGradient[idx].x = preconditioner * placer->totalGradient[idx].x;
@@ -695,10 +699,10 @@ void EPlacer_2D::totalGradientUpdate()
             //     totalGradient[index].x  /= 1000;  
             //     totalGradient[index].y  /= 1000;
             // }
-            // if (curNodeOrFiller->name.find("reg") != string::npos)  {
-            //     totalGradient[index].x  = 0;  
-            //     totalGradient[index].y  = 0;
-            // }
+            if (curNodeOrFiller->name.find("reg") != string::npos )  { //1080 *270
+                totalGradient[index].x  = 0;  
+                totalGradient[index].y  = 0;
+            }
             // totalGradient[index].x = preconditioner * (- wirelengthGradient[index].x - beta * p2pattractionGradient[index].x - displacementFactor * displacementGradient[index].x);
             // totalGradient[index].y = preconditioner * (- wirelengthGradient[index].y - beta * p2pattractionGradient[index].y - displacementFactor * displacementGradient[index].y);
             
@@ -813,7 +817,7 @@ void EPlacer_2D::penaltyFactorInitilization()
         denominator += fabs(densityGradient[i].y);
     }
 
-    lambda = float_div(numerator, denominator);
+    lambda = float_div(numerator , denominator);
     // lambda = 5e-6;
     cout << "Initial penalty factor: " << lambda << endl;
 }
