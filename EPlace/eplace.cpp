@@ -501,6 +501,7 @@ void EPlacer_2D::displacementGradientUpdate()
 {
     segmentFaultCP("displacementGradient");
     int index = 0;
+    int avgDisplacement = 0;
     for (Module *curNode : db->dbNodes) // use ePlaceNodesAndFillers?
     {
         assert(curNode->idx == index);
@@ -511,12 +512,17 @@ void EPlacer_2D::displacementGradientUpdate()
 
         displacementGradient[index].x = curCenter.x - initialCenter.x;
         displacementGradient[index].y = curCenter.y - initialCenter.y;
+
+        // displacementGradient[index].x = (curCenter.x > initialCenter.x)? -1 : 1;
+        // displacementGradient[index].y = (curCenter.y > initialCenter.y)? -1 : initialCenter.y - curCenter.y;
         // float plateau = pow (540 ,2);
         // displacementGradient[index].x = 4 *pow((curCenter.x - initialCenter.x),3)/plateau ;
         // displacementGradient[index].y = 4 *pow((curCenter.y - initialCenter.y),3)/plateau ;
-        
+        avgDisplacement += abs(curCenter.x - initialCenter.x) + abs(curCenter.y - initialCenter.y);
         index++;
     }
+    avgDisplacement /= db->dbNodes.size();
+    cout << "Average displacement: " << avgDisplacement << endl;
 
 }
 
@@ -699,15 +705,15 @@ void EPlacer_2D::totalGradientUpdate()
             //     totalGradient[index].x  /= 1000;  
             //     totalGradient[index].y  /= 1000;
             // }
-            if (curNodeOrFiller->name.find("reg") != string::npos )  { //1080 *270
-                totalGradient[index].x  = 0;  
-                totalGradient[index].y  = 0;
-            }
+            // if (curNodeOrFiller->name.find("reg") != string::npos )  { //1080 *270
+            //     totalGradient[index].x  = 0;  
+            //     totalGradient[index].y  = 0;
+            // }
             // totalGradient[index].x = preconditioner * (- wirelengthGradient[index].x - beta * p2pattractionGradient[index].x - displacementFactor * displacementGradient[index].x);
             // totalGradient[index].y = preconditioner * (- wirelengthGradient[index].y - beta * p2pattractionGradient[index].y - displacementFactor * displacementGradient[index].y);
             
-            // totalGradient[index].x = preconditioner * (lambda * densityGradient[index].x - wirelengthGradient[index].x - beta * p2pattractionGradient[index].x);
-            // totalGradient[index].y = preconditioner * (lambda * densityGradient[index].y - wirelengthGradient[index].y  - beta * p2pattractionGradient[index].y);
+            // totalGradient[index].x = preconditioner * (lambda * densityGradient[index].x - wirelengthGradient[index].x) - beta * p2pattractionGradient[index].x - displacementFactor * displacementGradient[index].x;
+            // totalGradient[index].y = preconditioner * (lambda * densityGradient[index].y - wirelengthGradient[index].y ) - beta * p2pattractionGradient[index].y - displacementFactor * displacementGradient[index].y;
             
             // totalGradient[index].x = preconditioner * (lambda * densityGradient[index].x - wirelengthGradient[index].x -  displacementGradient[index].x);
             // totalGradient[index].y = preconditioner * (lambda * densityGradient[index].y - wirelengthGradient[index].y - displacementGradient[index].y);
@@ -816,9 +822,10 @@ void EPlacer_2D::penaltyFactorInitilization()
         denominator += fabs(densityGradient[i].x);
         denominator += fabs(densityGradient[i].y);
     }
+    // lambda = float_div(numerator , denominator);
 
-    lambda = float_div(numerator , denominator);
-    // lambda = 5e-6;
+    lambda = float_div(numerator + nodeCount * 500 * 2 * displacementFactor, denominator);
+    // lambda = 0.00002;
     cout << "Initial penalty factor: " << lambda << endl;
 }
 

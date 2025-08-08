@@ -12,10 +12,11 @@ public:
     {
         db = _db;
     }
-    void intializePaths(std::string initialDEFPath, std::string openroadPath, std::string tclPath, std::string staReportPath)
+    void intializePaths(std::string initialDEFPath, std::string initialSDCPath, std::string openroadPath, std::string tclPath, std::string staReportPath)
     {
 
         DEFAULTinitialDEFPath = initialDEFPath;
+        DEFAULTinitialSDCPath = initialSDCPath;
         DEFAULTopenroadPath = openroadPath;
         DEFAULTtclPath = tclPath;
         DEFAULTstaReportPath = staReportPath;
@@ -30,6 +31,7 @@ public:
 private:
     PlaceDB *db;
     std::string DEFAULTinitialDEFPath; // 路徑用於存儲eplace glbal placement DEF文件
+    std::string DEFAULTinitialSDCPath;
     std::string DEFAULTstaReportPath; // 路徑用於存儲報告
     std::string DEFAULTtclPath; // 用於存儲TCL腳本的路徑
     std::string DEFAULTopenroadPath; 

@@ -102,7 +102,7 @@ public:
         {
             return it->second;
         }
-        return 1.0f; // or throw an exception
+        return 10.0f; // or throw an exception
     }
     void updateP2Pweight(string node1name, string pin1name, string node2name, string pin2name, float slack , float WNS)
     {

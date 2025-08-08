@@ -14,6 +14,7 @@ int main(int argc, char *argv[])
 {
     BookshelfParser parser;
     string inital_def_path ="";
+    string inital_sdc_path ="";
     PlaceDB *placedb = new PlaceDB();
     gArg.Init(argc, argv);
 
@@ -74,7 +75,7 @@ int main(int argc, char *argv[])
         string auxPath = string(argv[2]);
         parser.ReadFile(auxPath, *placedb);
         inital_def_path = auxPath.substr(0, auxPath.rfind(".")) + ".def";
-
+        inital_sdc_path = auxPath.substr(0, auxPath.rfind(".")) + ".sdc";
     }
     placedb->showDBInfo();
     string plPath;
@@ -113,10 +114,11 @@ int main(int argc, char *argv[])
     EPlacer_2D *eplacer = new EPlacer_2D(placedb);
     OpenroadInterface* openroadInterface = new OpenroadInterface(placedb);
     string initialDEFPath = inital_def_path ;//"./testcase/aes_cipher_top/aes_cipher_top.def";
+    string initialSDCPath = inital_sdc_path ;
     string openroadPath = "/usr/bin/openroad";
     string tclPath = "./eplace_sta.tcl";
     string staReportPath = "./eplace_sta_report.rpt";
-    openroadInterface->intializePaths(initialDEFPath, openroadPath, tclPath, staReportPath);
+    openroadInterface->intializePaths(initialDEFPath, initialSDCPath, openroadPath, tclPath, staReportPath);
 
     float targetDensity;
     if (!gArg.GetFloat("targetDensity", &targetDensity))
@@ -137,6 +139,12 @@ int main(int argc, char *argv[])
 
     if (!gArg.CheckExist("nomGP"))
     {
+        AbacusLegalizer *legalizer = new AbacusLegalizer(placedb);
+        legalizer->legalization();
+
+        DetailedPlacer *detailedPlacer = new DetailedPlacer(placedb);
+        detailedPlacer->detailedPlacement();
+
         cout << "mGP started!\n";
 
         time_start(&mGPTime);
