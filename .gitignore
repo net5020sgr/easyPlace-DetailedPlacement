@@ -6,3 +6,5 @@ ariane/
 pci_bridge32/
 aes/
 ac97_top/
+des/
+*.zip
