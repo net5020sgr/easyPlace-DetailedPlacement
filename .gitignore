@@ -8,3 +8,7 @@ aes/
 ac97_top/
 des/
 *.zip
+
+# Large files to ignore
+ariane/ariane.spef
+ariane/INSTA_ariane_106k_cells_463k_pins/insta_inputs/cell_arcs.csv
