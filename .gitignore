@@ -1,2 +1,8 @@
 # Ignore build directory
 build/
+after_buffered/
+aes_cipher_top/
+ariane/
+pci_bridge32/
+aes/
+ac97_top/
