@@ -136,7 +136,7 @@ public:
         invertedGamma.SetZero();
         lambda = 0.0;
         beta = 2.5e-5 ;  //efficient tdp say 2.5e-5 
-        displacementFactor = 0.01;
+        displacementFactor = beta;
         lastHPWL = 0.0;
         lastTNS = 0.0;
         judge_tns = false;

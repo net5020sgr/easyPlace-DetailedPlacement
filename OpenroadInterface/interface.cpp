@@ -39,7 +39,7 @@ estimate_parasitics -placement
 
 report_tns
 report_wns
-report_checks -slack_max 0 -endpoint_count 10000 
+report_checks -slack_max 0 -endpoint_count 100000 -unique
 exit )";
 
     tclFile.close();
@@ -119,44 +119,67 @@ void OpenroadInterface::analyzeSTAReport()
         else if (std::regex_search(line, match, slack_regex)) {
             slack = std::stof(match[1].str());
             if (slack < 0) {
-                for (size_t i = 1; i < pathPins.size(); ++i) {
-            
-                        auto np1= pathPins[i - 1];
-                        auto np2 = pathPins[i];
-                        // cout << "node1: " << np1.first << " pin1: " << np1.second << " node2: " << np2.first << " pin2: " << np2.second << " slack: " << slack << " WNS: " << WNS << endl;
-        
-                        auto [module1, pin1] = db->NodePinMap[std::make_pair(np1.first, np1.second)];
-                        auto [module2, pin2] = db->NodePinMap[std::make_pair(np2.first, np2.second)];
-                        if (module1 == module2){
-                            // cout << "module1 == module2" << endl;
-                            continue;
-                        }
-                        assert(module1 != nullptr);
-                        assert(module2 != nullptr);
-                        assert(pin1 != nullptr);
-                        assert(pin2 != nullptr);
-                        //now two pin are both outputpin, need to find the input pin of module2
-                        Pin *inputPin = nullptr;
-                        for (Pin *p : module2->modulePins) {
-                            
-                            cout <<p->name << endl;
-                            for (Pin *p2:pin1->net->netPins){
-                                if (p2 == p ){
-                                    inputPin = p2;
-                                    break;
-                                }
-                            }
-                            
-                        }
-                        if (inputPin == nullptr) {
-                            cout << "Input pin not found for module: " << np2.first << endl;
-                            exit(1);
-                        }
-                        // cout << "node1: " << np1.first << " pin1: " << np1.second << " node2: " << np2.first << " pin2: " << inputPin->name << " slack: " << slack << " WNS: " << WNS << endl;
-                        
-                        db->updateP2Pweight(np1.first, np1.second, np2.first, inputPin->name, slack, WNS);
-                        NegativeSlackCount++;
+                // Skip HBT nodes (name starts with "hbt_") and connect to next gate
+                std::vector<std::pair<std::string, std::string>> filtered;
+                filtered.reserve(pathPins.size());
+                for (const auto& np : pathPins) {
+                    if (filtered.size() > 0 && filtered[filtered.size() - 1].first == np.first) {
+                        filtered.pop_back();
+                    }
+                    filtered.push_back(np);
+                }
+                for (size_t i = 1; i < filtered.size(); ++i) {
 
+                    auto np1= filtered[i - 1];  
+                    auto np2 = filtered[i];
+                    // cout << "np1: " << np1.first << " " << np1.second << " np2: " << np2.first << " " << np2.second << endl;
+
+                    auto [module1, pin1] = db->NodePinMap[std::make_pair(np1.first, np1.second)];
+                    auto [module2, pin2] = db->NodePinMap[std::make_pair(np2.first, np2.second)];
+                    if (module1 == module2){
+                        // cout << "module1 == module2" << endl;
+                        continue;
+                    }
+                    // assert(module1 != nullptr);
+                    if (module1 == nullptr){
+                        cout << "module1 is nullptr " << np1.first << " " << np1.second << " " << np2.first << " " << np2.second << endl;
+                        exit(1);
+                    }
+                    if (module2 == nullptr){
+                        cout << "module2 is nullptr " << np2.first << " " << np2.second << " " << np1.first << " " << np1.second << endl;
+                        exit(1);
+                    }
+                    if (pin1 == nullptr){
+                        cout << "pin1 is nullptr " << np1.first << " " << np1.second << " " << np2.first << " " << np2.second << endl;
+                        exit(1);
+                    }
+                    if (pin2 == nullptr){
+                        cout << "pin2 is nullptr " << np2.first << " " << np2.second << " " << np1.first << " " << np1.second << endl;
+                        exit(1);
+                    }
+      
+                    //now two pin are both outputpin, need to find the input pin of module2
+                    Pin *inputPin = nullptr;
+                    for (Pin *p : module2->modulePins) {
+                        
+                        // cout <<p->name << endl;
+                        for (Pin *p2:pin1->net->netPins){
+                            if (p2 == p ){
+                                inputPin = p2;
+                                break;
+                            }
+                        }
+                        
+                    }
+                    if (inputPin == nullptr) {
+
+                        cout << "Input pin not found for module: " << np2.first << " " << np2.second << endl;
+                        exit(1);
+                    }
+                    // cout << "node1: " << np1.first << " pin1: " << np1.second << " node2: " << np2.first << " pin2: " << inputPin->name << " slack: " << slack << " WNS: " << WNS << endl;
+                    
+                    db->updateP2Pweight(np1.first, np1.second, np2.first, inputPin->name, slack, WNS);
+                    NegativeSlackCount++;
                 }
             }
         }

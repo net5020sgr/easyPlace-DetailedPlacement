@@ -405,26 +405,47 @@ VECTOR_2D Net::getP2pAttractionGradient_2D(Pin *curPin, PlaceDB* db)
 
     POS_3D curPinPos = curPin->getAbsolutePos();
 
-    for (Pin* otherPin : netPins)
+    if (curPin->direction == PIN_DIRECTION_OUT)
     {
-        if (otherPin == curPin)
-        {
-            continue; // skip the current pin
-        }
-        
-        float currentPinPairWeight = db -> getP2Pweight(curPin, otherPin); // check if pin1 and pin2 exist
-        // if (currentPinPairWeight != 1 ) cout <<"( "<< curPin->name <<", " << otherPin->name<<" ): " << currentPinPairWeight<<endl; 
-        // assume weight is 1, can be changed later
-        POS_3D otherPinPos = otherPin->getAbsolutePos();
 
-        // weight is 1
-        gradientOnCurrentPin.x += currentPinPairWeight * (curPinPos.x - otherPinPos.x);
-        gradientOnCurrentPin.y += currentPinPairWeight * (curPinPos.y - otherPinPos.y);
+        for (Pin* otherPin : netPins)
+        {
+            if (otherPin == curPin)
+            {
+                continue; // skip the current pin
+            }
+            
+            float currentPinPairWeight = db -> getP2Pweight(curPin, otherPin); // check if pin1 and pin2 exist
+            // if (currentPinPairWeight != 1 ) cout <<"( "<< curPin->name <<", " << otherPin->name<<" ): " << currentPinPairWeight<<endl; 
+            // assume weight is 1, can be changed later
+            POS_3D otherPinPos = otherPin->getAbsolutePos();
+
+            // weight is 1
+            gradientOnCurrentPin.x += currentPinPairWeight * 2 * (curPinPos.x - otherPinPos.x);
+            gradientOnCurrentPin.y += currentPinPairWeight * 2 * (curPinPos.y - otherPinPos.y);
+        }
     }
-   
+    else // PIN_DIRECTION_IN
+    {
+        for (Pin* otherPin : netPins)
+        {
+            if (otherPin == curPin)
+            {
+                continue; // skip the current pin
+            }
+            if (otherPin->direction == PIN_DIRECTION_OUT)
+            {
+                float currentPinPairWeight = db -> getP2Pweight(curPin, otherPin); // check if pin1 and pin2 exist
+                POS_3D otherPinPos = otherPin->getAbsolutePos();
+
+                // weight is 1
+                gradientOnCurrentPin.x += currentPinPairWeight * 2 * (curPinPos.x - otherPinPos.x);
+                gradientOnCurrentPin.y += currentPinPairWeight * 2 * (curPinPos.y - otherPinPos.y);
+            }
+        }   
+    }
     return gradientOnCurrentPin;
 }
-
 
 POS_3D Pin::getAbsolutePos()
 {

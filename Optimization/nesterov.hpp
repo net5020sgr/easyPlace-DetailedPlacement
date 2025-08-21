@@ -15,7 +15,7 @@
 #define MAX_ITERATION 500
 #define IGNORE_ITERATION 20
 #define BKTRK_EPS 0.95
-#define STA_ITER 15
+#define STA_ITER 10
 
 template <typename T>
 class NSIter
@@ -200,6 +200,17 @@ template <typename T>
 void EplaceNesterovOpt<T>::wrap_up()
 {
     placer->setPosition(cur_iter.main_solution);
+    if (1){
+        cout << "final" << endl;
+        string staDEFPath = "./TDP_result.def";
+        
+    
+        openroadInterface->outputSTADEF(staDEFPath);
+        openroadInterface->runSTA(staDEFPath);
+        openroadInterface->analyzeSTAReport();
+    
+        placer->synccurTNS();
+    }
 }
 
 template <>

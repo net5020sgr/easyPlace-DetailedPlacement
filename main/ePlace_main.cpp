@@ -142,8 +142,8 @@ int main(int argc, char *argv[])
         AbacusLegalizer *legalizer = new AbacusLegalizer(placedb);
         legalizer->legalization();
 
-        DetailedPlacer *detailedPlacer = new DetailedPlacer(placedb);
-        detailedPlacer->detailedPlacement();
+        // DetailedPlacer *detailedPlacer = new DetailedPlacer(placedb);
+        // detailedPlacer->detailedPlacement();
 
         cout << "mGP started!\n";
 
@@ -238,6 +238,19 @@ int main(int argc, char *argv[])
 
             placedb->outputBookShelf("eLG",true);
             placedb->outputDEF("eLP",inital_def_path);
+
+            if (isTiming) {
+                cout << "isTiming" << endl;
+                string staDEFPath = "./eLP_result.def";
+        
+    
+                openroadInterface->outputSTADEF(staDEFPath);
+                openroadInterface->runSTA(staDEFPath);
+                openroadInterface->analyzeSTAReport();
+            }
+            else {
+                cout << "not isTiming" << endl;
+            }
         }
         else
         {
@@ -259,5 +272,15 @@ int main(int argc, char *argv[])
 
         placedb->outputBookShelf("eDP",false);
         placedb->outputDEF("eDP",inital_def_path);
+        if (isTiming) {
+            cout << "isTiming" << endl;
+            string staDEFPath = "./eDP_result.def";
+            openroadInterface->outputSTADEF(staDEFPath);
+            openroadInterface->runSTA(staDEFPath);
+            openroadInterface->analyzeSTAReport();
+        }
+        else {
+            cout << "not isTiming" << endl;
+        }
     }
 }

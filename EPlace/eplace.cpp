@@ -203,7 +203,7 @@ void EPlacer_2D::binInitialization()
     {
         binDimension.x = binDimension.y = 1024; //!
     }
-    binDimension.x = binDimension.y = 1024; //!
+    // binDimension.x = binDimension.y = 1024; //!
 
     cout << BLUE << "Bin dimension: " << binDimension << "\ncoreRegion width: " << coreRegionWidth << "\ncoreRegion height: " << coreRegionHeight << RESET << endl;
 
@@ -665,11 +665,11 @@ void EPlacer_2D::totalGradientUpdate()
         // assert(connectedNetNum == placer->ePlaceNodesAndFillers[idx]->modulePins.size());
         float charge = curNodeOrFiller->getArea();
         // cout << "charge: " << charge << endl;
-        float TotalConnectedPinsNum = static_cast<float>(curNodeOrFiller->getTotalConnectedPinsNum());
+    
         // float preconditioner = 1 / max(1.0f, (connectedNetNum + lambda * charge));  //need to check for +w(i,j)
 
         // float preconditioner = 1 / max(1.0f, (connectedNetNum + lambda * charge));// + beta * TotalConnectedPinsNum )); //need to check for +w(i,j)
-        float preconditioner = 1 / max(1.0f, (connectedNetNum + lambda * charge + beta * TotalConnectedPinsNum )); //need to check for +w(i,j)
+        float preconditioner = 1 / max(1.0f, (connectedNetNum + lambda * charge  )); //need to check for +w(i,j)
 
         // float preconditioner = 1 / max(1.0f, (connectedNetNum + lambda * charge +1)); // need to check for +w(i,j)
         // preconditionedGradient[idx].x = preconditioner * placer->totalGradient[idx].x;
@@ -824,7 +824,7 @@ void EPlacer_2D::penaltyFactorInitilization()
     }
     // lambda = float_div(numerator , denominator);
 
-    lambda = float_div(numerator + nodeCount * 500 * 2 * displacementFactor, denominator);
+    lambda = float_div(numerator , denominator);
     // lambda = 0.00002;
     cout << "Initial penalty factor: " << lambda << endl;
 }
@@ -855,9 +855,6 @@ void EPlacer_2D::updatePenaltyFactor()
     }
     lambda *= multiplier;
     
-
-
-
     lastHPWL = curHPWL;
 }
 
@@ -887,7 +884,7 @@ void EPlacer_2D::updatePenaltyFactorbyTNS(int iter_power)
         multiplier = PENALTY_MULTIPLIER_LOWERBOUND;
     }
     // lambda *= pow(multiplier, iter_power); //
-    lambda *= multiplier;
+    // lambda *= multiplier;
 
     lastTNS = curTNS;
 }
