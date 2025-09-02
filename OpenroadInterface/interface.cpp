@@ -119,6 +119,7 @@ void OpenroadInterface::analyzeSTAReport()
         else if (std::regex_search(line, match, slack_regex)) {
             slack = std::stof(match[1].str());
             if (slack < 0) {
+                NegativeSlackCount++;
                 // std::cout << "[DEBUG] Before NegativeSlackCount increment: " << NegativeSlackCount << std::endl;
                 NegativeSlackCount++;
                 // std::cout << "[DEBUG] After NegativeSlackCount increment: " << NegativeSlackCount << std::endl;
@@ -197,6 +198,7 @@ void OpenroadInterface::analyzeSTAReport()
                         cout << "pin1->net != pin2->net" << pin1->net->name << " " << inputPin->net->name << endl;
                         exit(1);
                     }
+                    assert(inputPin ->net == pin1->net);
                     if (pin1->net) {
                         double newCoefficient = (double)(1 + 0.2*abs(slack)/abs(WNS));
                         // std::cout << "[DEBUG] slack: " << slack << ", WNS: " << WNS << ", abs(slack)/abs(WNS): " << abs(slack)/abs(WNS) << ", newCoefficient: " << newCoefficient << ", current timingCoefficient: " << pin1->net->timingCoefficient << std::endl;
@@ -205,7 +207,7 @@ void OpenroadInterface::analyzeSTAReport()
                     } else {
                         // std::cout << "[ERROR] pin1->net is nullptr! Cannot update timingCoefficient." << std::endl;
                     }
-                    NegativeSlackCount++;
+                    
                 }
             }
         }

@@ -39,23 +39,7 @@ int main(int argc, char *argv[])
         inital_sdc_path = auxPath.substr(0, auxPath.rfind(".")) + ".sdc";
     }
 
-    LEFDEFParser lefdefParser(placedb);
-    if (strcmp(argv[1] + 1, "def") == 0) // -lef, argv[1]=='-'
-    {
-        // lef
-        printf("Use DEF placement format\n");
-        string filename = argv[2];
-        string path = filename.substr(0, filename.find_last_of('/') + 1);
-        string design = filename.substr(filename.find_last_of('/') + 1);
-        design = design.substr(0, design.find_last_of('.'));
-        lefdefParser.setDesignName(design);
-        lefdefParser.setDesignPath(path);
-        lefdefParser.startParse();
-
-        inital_def_path = filename;
-        inital_sdc_path = filename.substr(0, filename.rfind(".")) + ".sdc";
-    }
-    
+   
     placedb->showDBInfo();
     string plPath;
     if (gArg.GetString("loadpl", &plPath))

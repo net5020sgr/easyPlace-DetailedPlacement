@@ -14,22 +14,4 @@ public:
 private:
 };
 
-class LEFDEFParser
-{
-public:
-    LEFDEFParser(PlaceDB *db);
-    int setDesignName(string file);
-    int setDesignPath(string path);
-    void startParse();
-
-private:
-    string designName;
-    string designPath;
-    PlaceDB *db;
-    BookshelfParser bookshelfParser;
-    void parseNets();
-    void parseRows();
-    void parseInsts();
-};
-
 #endif
