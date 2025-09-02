@@ -86,7 +86,7 @@ public:
     Module *addTerminal(int index, string name, float width, float height, bool isFixed, bool isNI);
     void addNet(Net *);
     int addPin(Module *, Net *, string, float, float);
-
+    void resetNetTimingCoefficient();
     void allocateNodeMemory(int);
     void allocateTerminalMemory(int);
     void allocateNetMemory(int);

@@ -22,61 +22,40 @@ int main(int argc, char *argv[])
     {
         return 0;
     }
-    if (strcmp(argv[1] + 1, "aux") == 0) // -aux, argv[1]=='-'
+
+    string auxPath;
+    if (gArg.CheckExist("aux"))
     {
-        // bookshelf
-        printf("Use BOOKSHELF placement format\n");
-
-        string filename = argv[2];
-        string::size_type pos = filename.rfind("/");
-        string benchmarkName;
-        if (pos != string::npos)
-        {
-            printf("    Path = %s\n", filename.substr(0, pos + 1).c_str());
-            gArg.Override("path", filename.substr(0, pos + 1));
-
-            int length = filename.length();
-
-            benchmarkName = filename.substr(pos + 1, length - pos);
-
-            int len = benchmarkName.length();
-            if (benchmarkName.substr(len - 4, 4) == ".aux")
-            {
-                benchmarkName = benchmarkName.erase(len - 4, 4);
-            }
-            gArg.Override("benchmarkName", benchmarkName);
-            cout << "    Benchmark: " << benchmarkName << endl;
-
-            string outputFilePath;
-            if (!gArg.GetString("outputPath", &outputFilePath))
-            {
-                outputFilePath = "./";
-            }
-            outputFilePath = outputFilePath + "/" + benchmarkName + "/";
-            gArg.Override("outputPath", outputFilePath);
-
-            string plotPath = outputFilePath + "Graphs/";
-            gArg.Override("plotPath", plotPath);
-
-            string cmd = "rm -rf " + outputFilePath;
-            system(cmd.c_str());
-
-            cmd = "mkdir -p " + outputFilePath;
-            system(cmd.c_str());
-
-            cmd = "rm -rf " + plotPath;
-            system(cmd.c_str());
-
-            cmd = "mkdir -p " + plotPath;
-            system(cmd.c_str());
-
-            cout << "    Plot path: " << plotPath << endl;
-        }
-        string auxPath = string(argv[2]);
+        gArg.GetString("aux", &auxPath);
+        cout << "Use Bookshelf placement format" << endl;
+        string path = auxPath.substr(0, auxPath.find_last_of('/') + 1);
+        string design = auxPath.substr(auxPath.find_last_of('/') + 1);
+        design = design.substr(0, design.find_last_of('.'));
+        gArg.Override("path", path.c_str());
+        gArg.Override("design", design.c_str());
+        gArg.Override("plot", "GP"); // default plot name
         parser.ReadFile(auxPath, *placedb);
         inital_def_path = auxPath.substr(0, auxPath.rfind(".")) + ".def";
         inital_sdc_path = auxPath.substr(0, auxPath.rfind(".")) + ".sdc";
     }
+
+    LEFDEFParser lefdefParser(placedb);
+    if (strcmp(argv[1] + 1, "def") == 0) // -lef, argv[1]=='-'
+    {
+        // lef
+        printf("Use DEF placement format\n");
+        string filename = argv[2];
+        string path = filename.substr(0, filename.find_last_of('/') + 1);
+        string design = filename.substr(filename.find_last_of('/') + 1);
+        design = design.substr(0, design.find_last_of('.'));
+        lefdefParser.setDesignName(design);
+        lefdefParser.setDesignPath(path);
+        lefdefParser.startParse();
+
+        inital_def_path = filename;
+        inital_sdc_path = filename.substr(0, filename.rfind(".")) + ".sdc";
+    }
+    
     placedb->showDBInfo();
     string plPath;
     if (gArg.GetString("loadpl", &plPath))

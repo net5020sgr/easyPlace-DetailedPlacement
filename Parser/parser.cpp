@@ -35,6 +35,12 @@ int BookshelfParser::ReadFile(string file, PlaceDB &db)
 	ReadPLFile(file_pl, db, true); // initial module locations
 	db.setChipRegion_2D();
 	db.InitializeNodePinMap(); // initialize NodePinMap after all nodes and pins are added
+	cout << "NodePinMap size: " << db.NodePinMap.size() << endl;
+	// for (auto &np : db.NodePinMap)
+	// {
+	// 	cout << "NodePinMap: " << np.first.first << " " << np.first.second << " " << np.second.first->name << " " << np.second.second->name << endl;
+	// }
+	// exit(0);
 	return 0;
 }
 
@@ -297,6 +303,174 @@ int BookshelfParser::ReadNodesFile(string file, PlaceDB &db)
 	return 0;
 }
 
+// int BookshelfParser::ReadNetsFile(string file, PlaceDB &db)
+// {
+// 	string path;
+// 	gArg.GetString("path", &path);
+// 	path += file;
+// 	ifstream in(path.c_str());
+// 	if (!in)
+// 	{
+// 		cerr << "Cannot open net file: " << file << endl;
+// 		exit(-1);
+// 	}
+
+// 	int nNets, nPins;
+// 	nNets = nPins = -1;
+
+// 	int lineNumber = 0;
+
+// 	// check file format string
+// 	char tmp[10000];
+// 	in.getline(tmp, 10000);
+// 	lineNumber++;
+
+// #if 0
+// 	if( strcmp( "UCLA nets 1.0", tmp ) != 0 )
+// 	{
+// 		cerr << "Nets file header error (UCLA nets 1.0)\n";
+// 		exit(-1);
+// 	}
+// #endif
+
+// 	// check file header
+// 	int checkFormat = 0;
+// 	while (in.getline(tmp, 10000))
+// 	{
+// 		lineNumber++;
+
+// 		// cout << tmp << endl;
+// 		if (tmp[0] == '#')
+// 			continue;
+// 		if (strncmp("NumNets", tmp, 7) == 0)
+// 		{
+// 			char *pNumber = strrchr(tmp, ':');
+// 			nNets = atoi(pNumber + 1);
+// 			db.allocateNetMemory(nNets);
+// 			checkFormat++;
+// 		}
+// 		else if (strncmp("NumPins", tmp, 7) == 0)
+// 		{
+// 			char *pNumber = strrchr(tmp, ':');
+// 			nPins = atoi(pNumber + 1);
+// 			db.allocatePinMemory(nPins);
+// 			checkFormat++;
+// 		}
+
+// 		if (checkFormat == 2)
+// 			break;
+// 	}
+
+// 	if (checkFormat != 2)
+// 	{
+// 		cerr << "** Net file header error\n";
+// 	}
+
+// 	cout << "         Nets: " << nNets << endl;
+// 	cout << "         Pins: " << nPins << endl;
+
+// 	char tmp1[2000], tmp2[2000], tmp3[2000], tmp4[2000], tmp5[2000], tmp6[2000], tmp7[2000];
+// 	int maxDegree = 0;
+// 	int degree;
+// 	int pinIndex = 0;
+// 	int netIndex = 0;
+// 	while (in.getline(tmp, 10000))
+// 	{
+// 		lineNumber++;
+
+// 		if (tmp[0] == '\0')
+// 			continue;
+        
+//         string line(tmp);
+//         if (line.find("NetDegree") != string::npos)
+//         {
+//             stringstream ss(line);
+//             string netDegreeStr, colon;
+//             ss >> netDegreeStr >> colon >> degree;
+//         }
+//         else
+//         {
+//             continue;
+//         }
+
+// 		if (degree < 0)
+// 		{
+// 			cerr << "Syntax unsupport in line " << lineNumber << ": "
+// 				 << tmp1 << endl;
+// 			return 1;
+// 		}
+
+// 		Net *net = new Net(netIndex); // default constructer
+// 		Module *module;
+// 		int pinId;
+// 		double xOffset, yOffset;
+// 		if (degree > maxDegree)
+// 			maxDegree = degree;
+
+// 		net->allocateMemoryForPin(degree);
+
+// 		pinIndex += degree; // will read "degree" pins
+
+// 		for (int j = 0; j < degree; j++)
+// 		{
+// 			in.getline(tmp, 10000);
+// 			lineNumber++;
+//             string pinLine(tmp);
+//             stringstream pinStream(pinLine);
+            
+//             string instName, dir, colon, p_str, pinNameStr;
+//             pinStream >> instName >> dir >> colon >> xOffset >> yOffset >> colon >> p_str >> pinNameStr;
+
+// 			module = db.getModuleFromName(instName);
+
+// 			if (!module) {
+//                 cerr << "Error: Cannot find module " << instName << " for pin in net " << netIndex << " at line " << lineNumber << endl;
+//                 for (int i = instName.size() - 1; i >= 0; --i) {
+// 					if (instName[i] == '\\') {
+// 						instName.erase(i, 1);
+// 					}
+// 				}
+// 				module = db.getModuleFromName(instName);
+// 				if (!module) {
+// 					cerr << "Error: Cannot find module " << instName << " for pin in net " << netIndex << " at line " << lineNumber << endl;
+// 					exit(1);
+// 				}
+//             }
+
+// 			if (pinNameStr.rfind("p_", 0) == 0) {
+// 				pinNameStr = pinNameStr.substr(2);
+// 			}
+
+// 			pinId = db.addPin(module, net, pinNameStr, xOffset, yOffset);
+// 			module->addPin(db.dbPins[pinId]);
+// 			net->addPin(db.dbPins[pinId]);
+// 		}
+// 		db.addNet(net);
+// 		netIndex++;
+// 	}
+
+// 	// TODO: if nReadNets > nNets may have memory problem.
+// 	// check if modules number and terminal number match
+// 	if (nNets < netIndex)
+// 	{
+// 		cerr << "Error: There are " << netIndex << " nets in the file\n";
+// 		exit(-1);
+// 	}
+// 	if (pinIndex < nPins)
+// 	{
+// 		cerr << "Error: There are " << pinIndex << " pins in the file\n";
+// 		exit(-1);
+// 	}
+
+// 	db.pinCount = nPins;
+// 	db.netCount = nNets;
+
+// #if 1
+// 	cout << "Max net degree= " << maxDegree << endl;
+// #endif
+// 	return 0;
+// }
+
 int BookshelfParser::ReadNetsFile(string file, PlaceDB &db)
 {
 	string path;
@@ -375,14 +549,22 @@ int BookshelfParser::ReadNetsFile(string file, PlaceDB &db)
 		if (tmp[0] == '\0')
 			continue;
 
-		sscanf(tmp, "%s %s %d", tmp1, tmp2, &degree);
+		sscanf(tmp, "%s %s %d %s", tmp1, tmp2, &degree, tmp3);
 		if (strcmp(tmp1, "NetDegree") != 0 || degree < 0)
 		{
 			cerr << "Syntax unsupport in line " << lineNumber << ": "
-				 << tmp1 << endl;
+			
+			<< tmp1 << endl;
 			return 01;
 		}
-		Net *net = new Net(netIndex); // default constructer
+		if (degree < 2)
+		{
+			continue;
+		}
+
+
+
+		Net *net = new Net(netIndex , string(tmp3) ); // default constructer
 		Module *module;
 		int vCount;
 		int pinId;
@@ -400,19 +582,27 @@ int BookshelfParser::ReadNetsFile(string file, PlaceDB &db)
 			lineNumber++;
 			tmp3[0] = '\0';
 			tmp4[0] = '\0';
-			vCount = sscanf(tmp, "%s %s : %s %s", tmp1, tmp2, tmp3, tmp4,
-							tmp5, tmp6, tmp7);
-			vCount = sscanf(tmp, "%s %s : %s %s : %s %s %s",
-							tmp1, tmp2, tmp3, tmp4, tmp5, tmp6, tmp7);
-			// u0_g62691 I     :     -54   -54   : 0.0   0.0    p_A
-			// tmp1      tmp2        tmp3  tmp4    tmp5  tmp6  tmp7
+            tmp5[0] = '\0';
+            tmp6[0] = '\0';
+            tmp7[0] = '\0';
 
+            // Attempt to parse the pin line based on the expected format:
+            // <cell_name> <IO> : <x_offset> <y_offset> : 0 0 p_<pinName>
+            vCount = sscanf(tmp, "%s %s : %s %s : %s %s %s",
+                            tmp1, tmp2, tmp3, tmp4, tmp5, tmp6, tmp7);
+
+            // Handle cases where the last part (p_<pinName>) might be missing or different
             string pinNameStr = "";
-			if (vCount == 7) {
-				pinNameStr = string(tmp7);
-				pinNameStr = pinNameStr.substr(pinNameStr.find("_")+1);
-			}
-            
+            if (vCount == 7 && strncmp(tmp7, "p_", 2) == 0) {
+                pinNameStr = string(tmp7).substr(2);
+            } else if (vCount == 6 && strncmp(tmp6, "p_", 2) == 0) {
+                pinNameStr = string(tmp6).substr(2);
+            } else {
+                // Fallback: If p_<pin> is not found, use a default or tmp1 as pinName
+                // For now, let's use tmp1 as a fallback for pinNameStr if p_ is not present
+                pinNameStr = string(tmp1); 
+            }
+
 
 			if (tmp3[0] != '\0')
 				xOffset = atof(tmp3);
@@ -424,7 +614,22 @@ int BookshelfParser::ReadNetsFile(string file, PlaceDB &db)
 				yOffset = 0;
 
 			module = db.getModuleFromName(tmp1);
-			pinId = db.addPin(module, net, pinNameStr, xOffset, yOffset);
+			if (!module)
+			{
+				cerr << "Error: Module " << tmp1 << " not found for net " << net->name << " in line " << lineNumber << endl;
+				exit(-1);
+			}
+			int direction = -1;
+			if (strcmp(tmp2, "O") == 0)
+				direction = 0;
+			else if (strcmp(tmp2, "I") == 0)
+				direction = 1;
+
+			// cout << "direction: " << direction << endl;
+			// cout << "pinNameStr: " << pinNameStr << " xOffset: " << xOffset << " yOffset: " << yOffset << " module: " << module->name << " net: " << net->name << endl;
+			// pinId = db.addPin(module, net, pinNameStr, xOffset, yOffset, direction); // 0 output  1 input  -1 not-define
+			pinId = db.addPin(module, net, pinNameStr, xOffset, yOffset); // 0 output  1 input  -1 not-define
+
 			module->addPin(db.dbPins[pinId]);
 			net->addPin(db.dbPins[pinId]);
 
@@ -471,6 +676,8 @@ int BookshelfParser::ReadNetsFile(string file, PlaceDB &db)
 #if 1
 	cout << "Max net degree= " << maxDegree << endl;
 #endif
+
+	
 	return 0;
 }
 
@@ -574,4 +781,88 @@ int BookshelfParser::ReadPLFile(string file, PlaceDB &db, bool init)
 	}
 
 	return 0;
+}
+
+LEFDEFParser::LEFDEFParser(PlaceDB *db)
+{
+	this->db = db;
+}
+
+int LEFDEFParser::setDesignName(string file)
+{
+	designName = file;
+	return 0;
+}
+
+int LEFDEFParser::setDesignPath(string path)
+{
+	designPath = path;
+	return 0;
+}
+
+void LEFDEFParser::startParse()
+{
+	string design_dir_name = designName; // Assuming designName is the directory name
+	string cmd_rows = "openroad -python Parser/ParseRows.py --design_name " + string(designName)	 + " --design_path " + designPath + " --output_file " + string(designName) + ".rows";
+	system(cmd_rows.c_str());
+	parseRows();
+
+	string cmd_insts = "openroad -python Parser/ParseInsts.py --design_name " + string(designName) + " --design_path " + designPath + " --output_nodes " + string(designName) + ".nodes" + " --output_pl " + string(designName) + ".pl";
+	system(cmd_insts.c_str());
+    parseInsts();
+
+	string cmd_nets = "openroad -python Parser/ParseNets.py --design_name " + string(designName) + " --design_path " + designPath + " --output_file " + string(designName) + ".nets";
+	system(cmd_nets.c_str());
+    parseNets();
+}
+
+void LEFDEFParser::parseRows()
+{
+	ifstream in(designName + ".rows");
+	if (!in)
+	{
+		cerr << "\tCannot open inital.rows file" << endl;
+		exit(-1);
+	}
+	string tmp;
+	getline(in, tmp) ;
+	stringstream ss(tmp);
+	int numRows;
+	ss >> numRows;
+	cout << "numRows: " << numRows << endl;
+
+	vector<SiteRow> &vSites = db->dbSiteRows;
+	for (int i = 0; i < numRows; i++)
+	{
+		getline(in, tmp);
+		ss.clear();
+		ss.str(tmp);
+		string rowName;
+		float x, y, endx;
+		ss >> rowName >> x >> y >> endx;
+		vSites.push_back(SiteRow());
+		vSites.back().bottom = y;
+		vSites.back().height = 270;
+		vSites.back().step = 54;
+		vSites.back().orientation = OR_N;
+		vSites.back().intervals.push_back(Interval(x, endx));
+		vSites.back().start = POS_2D(x, y);
+		vSites.back().end = POS_2D(endx, y); // temp set to x, need to be updated by die area
+	}
+
+	db->commonRowHeight = 270;
+	db->setCoreRegion();	
+}
+
+void LEFDEFParser::parseNets()
+{
+	bookshelfParser.ReadNetsFile(designName + ".nets", *db);
+}
+
+void LEFDEFParser::parseInsts()
+{
+	bookshelfParser.ReadNodesFile(designName + ".nodes", *db);
+	bookshelfParser.ReadPLFile(designName + ".pl", *db, true);
+	db->setChipRegion_2D();
+	db->InitializeNodePinMap();
 }

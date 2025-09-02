@@ -73,7 +73,7 @@ void OpenroadInterface::analyzeSTAReport()
 
     //reset p2p weights
     db->resetP2Pweights();
-
+    db->resetNetTimingCoefficient();
     std::string line;
     std::regex startpoint_regex("^Startpoint: (\\S+)");
     std::regex endpoint_regex("^Endpoint: (\\S+)");
@@ -119,7 +119,9 @@ void OpenroadInterface::analyzeSTAReport()
         else if (std::regex_search(line, match, slack_regex)) {
             slack = std::stof(match[1].str());
             if (slack < 0) {
-                // Skip HBT nodes (name starts with "hbt_") and connect to next gate
+                // std::cout << "[DEBUG] Before NegativeSlackCount increment: " << NegativeSlackCount << std::endl;
+                NegativeSlackCount++;
+                // std::cout << "[DEBUG] After NegativeSlackCount increment: " << NegativeSlackCount << std::endl;
                 std::vector<std::pair<std::string, std::string>> filtered;
                 filtered.reserve(pathPins.size());
                 for (const auto& np : pathPins) {
@@ -129,37 +131,45 @@ void OpenroadInterface::analyzeSTAReport()
                     filtered.push_back(np);
                 }
                 for (size_t i = 1; i < filtered.size(); ++i) {
-
+                    // std::cout << "[DEBUG] Entering inner loop, iteration: " << i << std::endl;
                     auto np1= filtered[i - 1];  
                     auto np2 = filtered[i];
                     // cout << "np1: " << np1.first << " " << np1.second << " np2: " << np2.first << " " << np2.second << endl;
-
+                    // std::cout << "[DEBUG] Current pins: np1=(" << np1.first << ", " << np1.second << ") np2=(" << np2.first << ", " << np2.second << ")" << std::endl;
                     auto [module1, pin1] = db->NodePinMap[std::make_pair(np1.first, np1.second)];
                     auto [module2, pin2] = db->NodePinMap[std::make_pair(np2.first, np2.second)];
+                    // std::cout << "[DEBUG] Comparing modules: module1->name = " << (module1 ? module1->name : "nullptr") << " (ptr: " << module1 << ") vs module2->name = " << (module2 ? module2->name : "nullptr") << " (ptr: " << module2 << ")" << std::endl;
                     if (module1 == module2){
-                        // cout << "module1 == module2" << endl;
-                        continue;
+                        std::cout << "[DEBUG] module1 == module2, continuing." << std::endl;
+                        // cout << "module1 == 
+                        // continue;
+                        exit(1);
                     }
                     // assert(module1 != nullptr);
                     if (module1 == nullptr){
+                        std::cout << "[ERROR] module1 is nullptr for np1=(" << np1.first << ", " << np1.second << ") np2=(" << np2.first << ", " << np2.second << ")" << std::endl;
                         cout << "module1 is nullptr " << np1.first << " " << np1.second << " " << np2.first << " " << np2.second << endl;
                         exit(1);
                     }
                     if (module2 == nullptr){
+                        std::cout << "[ERROR] module2 is nullptr for np2=(" << np2.first << ", " << np2.second << ") np1=(" << np1.first << ", " << np1.second << ")" << std::endl;
                         cout << "module2 is nullptr " << np2.first << " " << np2.second << " " << np1.first << " " << np1.second << endl;
                         exit(1);
                     }
                     if (pin1 == nullptr){
+                        std::cout << "[ERROR] pin1 is nullptr for np1=(" << np1.first << ", " << np1.second << ") np2=(" << np2.first << ", " << np2.second << ")" << std::endl;
                         cout << "pin1 is nullptr " << np1.first << " " << np1.second << " " << np2.first << " " << np2.second << endl;
                         exit(1);
                     }
                     if (pin2 == nullptr){
+                        std::cout << "[ERROR] pin2 is nullptr for np2=(" << np2.first << ", " << np2.second << ") np1=(" << np1.first << ", " << np1.second << ")" << std::endl;
                         cout << "pin2 is nullptr " << np2.first << " " << np2.second << " " << np1.first << " " << np1.second << endl;
                         exit(1);
                     }
       
                     //now two pin are both outputpin, need to find the input pin of module2
                     Pin *inputPin = nullptr;
+                    // std::cout << "[DEBUG] Searching for input pin in module2->modulePins for np2: (" << np2.first << ", " << np2.second << ")" << std::endl;
                     for (Pin *p : module2->modulePins) {
                         
                         // cout <<p->name << endl;
@@ -172,13 +182,29 @@ void OpenroadInterface::analyzeSTAReport()
                         
                     }
                     if (inputPin == nullptr) {
-
+                        std::cout << "[ERROR] Input pin not found for module: " << np2.first << " " << np2.second << std::endl;
                         cout << "Input pin not found for module: " << np2.first << " " << np2.second << endl;
                         exit(1);
                     }
+                    // std::cout << "[DEBUG] Found inputPin: " << inputPin->name << std::endl;
                     // cout << "node1: " << np1.first << " pin1: " << np1.second << " node2: " << np2.first << " pin2: " << inputPin->name << " slack: " << slack << " WNS: " << WNS << endl;
-                    
+                    // std::cout << "[DEBUG] Calling updateP2Pweight." << std::endl;
                     db->updateP2Pweight(np1.first, np1.second, np2.first, inputPin->name, slack, WNS);
+
+                    db->NodePinMap[std::make_pair(np2.first, inputPin->name)] = std::make_pair(module2, inputPin);
+                    if( pin1->net != inputPin->net){
+                        std::cout << "[ERROR] pin1->net != pin2->net" << std::endl;
+                        cout << "pin1->net != pin2->net" << pin1->net->name << " " << inputPin->net->name << endl;
+                        exit(1);
+                    }
+                    if (pin1->net) {
+                        double newCoefficient = (double)(1 + 0.2*abs(slack)/abs(WNS));
+                        // std::cout << "[DEBUG] slack: " << slack << ", WNS: " << WNS << ", abs(slack)/abs(WNS): " << abs(slack)/abs(WNS) << ", newCoefficient: " << newCoefficient << ", current timingCoefficient: " << pin1->net->timingCoefficient << std::endl;
+                        pin1->net->timingCoefficient = max(pin1->net->timingCoefficient, newCoefficient);
+                        // std::cout << "[DEBUG] Updated timingCoefficient: " << pin1->net->timingCoefficient << std::endl;
+                    } else {
+                        // std::cout << "[ERROR] pin1->net is nullptr! Cannot update timingCoefficient." << std::endl;
+                    }
                     NegativeSlackCount++;
                 }
             }
@@ -189,6 +215,11 @@ void OpenroadInterface::analyzeSTAReport()
     std::cout << "TNS: " << TNS << std::endl;
     std::cout << "P2P weights updated based on STA report." << std::endl;
     // Close the file
+    // for (Net *net : db->dbNets) {
+    //     if (net->timingCoefficient != 1.0) {
+    //         cout << "net: " << net->idx << " timingCoefficient: " << net->timingCoefficient << endl;
+    //     }
+    // }
     fin.close();
 }
 

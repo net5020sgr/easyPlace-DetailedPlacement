@@ -1,9 +1,6 @@
-Use BOOKSHELF placement format
-    Path = ./after_buffered/aes/
-    Benchmark: aes_buf
-    Plot path: ./eplace_solution/aes_buf/Graphs/
-Reading AUX file: ./after_buffered/aes/aes_buf.aux
-		aes_buf.nodes aes_buf.nets aes_buf.wts aes_buf.pl aes_buf.scl
+Use Bookshelf placement format
+Reading AUX file: ./after_buffered/ac97_top/ac97_top_buf.aux
+		ac97_top_buf.nodes ac97_top_buf.nets ac97_top_buf.wts ac97_top_buf.pl ac97_top_buf.scl
 get subrow origin: 1008
 get subrow origin: 1008
 get subrow origin: 1008
@@ -119,836 +116,607 @@ get subrow origin: 1008
 get subrow origin: 1008
 get subrow origin: 1008
 get subrow origin: 1008
-Set core region from site info: lower left: (1008,1008) to upper right: (32220,32058)
-    NumModules: 4864
-    NumNodes: 4475 (= 4k)
-    Terminals: 389
-         Nets: 4735
-         Pins: 17582
-Max net degree= 57
-Initialize module position with file: aes_buf.pl
+get subrow origin: 1008
+get subrow origin: 1008
+get subrow origin: 1008
+get subrow origin: 1008
+get subrow origin: 1008
+get subrow origin: 1008
+get subrow origin: 1008
+get subrow origin: 1008
+get subrow origin: 1008
+get subrow origin: 1008
+get subrow origin: 1008
+get subrow origin: 1008
+get subrow origin: 1008
+get subrow origin: 1008
+get subrow origin: 1008
+get subrow origin: 1008
+get subrow origin: 1008
+get subrow origin: 1008
+get subrow origin: 1008
+get subrow origin: 1008
+get subrow origin: 1008
+get subrow origin: 1008
+get subrow origin: 1008
+get subrow origin: 1008
+get subrow origin: 1008
+get subrow origin: 1008
+get subrow origin: 1008
+get subrow origin: 1008
+get subrow origin: 1008
+get subrow origin: 1008
+get subrow origin: 1008
+get subrow origin: 1008
+get subrow origin: 1008
+get subrow origin: 1008
+get subrow origin: 1008
+get subrow origin: 1008
+get subrow origin: 1008
+get subrow origin: 1008
+get subrow origin: 1008
+get subrow origin: 1008
+get subrow origin: 1008
+get subrow origin: 1008
+get subrow origin: 1008
+get subrow origin: 1008
+get subrow origin: 1008
+get subrow origin: 1008
+get subrow origin: 1008
+Set core region from site info: lower left: (1008,1008) to upper right: (44802,44748)
+    NumModules: 7941
+    NumNodes: 7809 (= 7k)
+    Terminals: 132
+         Nets: 7865
+         Pins: 28627
+Max net degree= 71
+Initialize module position with file: ac97_top_buf.pl
+NodePinMap size: 28524
 
 <<<< DATABASE SUMMARIES >>>>
 
-         Core region: lower left: (1008,1008) to upper right: (32220,32058)
-   Row Height/Number: 270 / 115 (site step 54.000000)
-           Core Area: 969132608 (9.69133e+08)
-           Cell Area: 633209400 (65.34%)
-        Movable Area: 633209400 (65.34%)
+         Core region: lower left: (1008,1008) to upper right: (44802,44748)
+   Row Height/Number: 270 / 162 (site step 54.000000)
+           Core Area: 1915549568 (1.91555e+09)
+           Cell Area: 1183385700 (61.78%)
+        Movable Area: 1183385700 (61.78%)
           Fixed Area: 0 (0.00%)
   Fixed Area in Core: 0 (0.00%)
-     Placement Util.: 65.34% (=move/freeSites)
-        Core Density: 65.34% (=usedArea/core)
-              Cell #: 4475 (=4k)
-            Object #: 4864 (=4k) (fixed: 389) (macro: 0)
-               Net #: 4735 (=4k)
-               Max net degree=: 57
-                  Pin 2 (2605) 3-10 (1960) 11-100 (170) 100- (0)
-               Pin #: 17582
+     Placement Util.: 61.78% (=move/freeSites)
+        Core Density: 61.78% (=usedArea/core)
+              Cell #: 7809 (=7k)
+            Object #: 7941 (=7k) (fixed: 132) (macro: 0)
+               Net #: 7865 (=7k)
+               Max net degree=: 71
+                  Pin 2 (4633) 3-10 (2862) 11-100 (370) 100- (0)
+               Pin #: 28627
 Timing optimization enabled!
-==============================Target density set at: 0.9==============================
-[34mBin dimension: [1024,1024]
-coreRegion width: 31212
-coreRegion height: 31050[0m
-[34mBin step: [30.4805,30.3223][0m
-Bin add time: 0.0332711
-Terminal density time: 8.10623e-06
-Base density time: 0.87727
-Bin init time: 0.910667
+==============================Target density set at: 1==============================
+[34mBin dimension: [64,64]
+coreRegion width: 43794
+coreRegion height: 43740[0m
+[34mBin step: [684.281,683.438][0m
+Bin add time: 7.79629e-05
+Terminal density time: 1.90735e-06
+Base density time: 0.00515103
+Bin init time: 0.00527596
 Average displacement: 0
-avg|G|  WL 1.93e+08  DEN 1.19e+10  TIM 1.24e+08  DISP 6.65e+09
-Initial Overflow: 0.0977446
-Initial penalty factor: 3.65253e-06
+avg|G|  WL 2.30e+03  DEN 1.31e+09  TIM 0.00e+00  DISP 3.16e+08
+Initial Overflow: 0.000216063
+Initial penalty factor: 3.29483e-06
 isTiming
-
-Running LR for detailed placement...
-
-Running LR for detailed placement...
-
-Running ISM for detailed placement...
- iteration: 0 HPWL=20312288 (-1.610%)(-1.610%)   time: 0 sec   all: 0 sec
- iteration: 1 HPWL=20208511 (-0.511%)(-2.113%)   time: 0 sec   all: 0 sec
- iteration: 2 HPWL=20156206 (-0.259%)(-2.366%)   time: 0 sec   all: 0 sec
- iteration: 3 HPWL=20103248 (-0.263%)(-2.623%)   time: 0 sec   all: 0 sec
- iteration: 4 HPWL=20084273 (-0.094%)(-2.714%)   time: 0 sec   all: 0 sec
-Consider independent cells and enabled double window now
- iteration: 5 HPWL=20035536 (-0.243%)(-2.951%)   time: 0 sec   all: 0 sec
-ISM result: Pin-to-pin HPWL= 2.00355e+07 (-2.95053%)
-ISM total runtime:0.134617
-
-Running Global Swap for detailed placement...
-Found position for 64 among all 4475 cells
-Found position for 3 among all 4475 cells
-
-Global Swap finished in 0.00753903 seconds
-
-Running LR for detailed placement...
-
-Running LR for detailed placement...
-
-Running ISM for detailed placement...
- iteration: 0 HPWL=19889621 (-0.085%)(-0.085%)   time: 0 sec   all: 0 sec
-Consider independent cells and enabled double window now
- iteration: 1 HPWL=19861984 (-0.139%)(-0.224%)   time: 0 sec   all: 0 sec
-ISM result: Pin-to-pin HPWL= 1.9862e+07 (-0.224006%)
-ISM total runtime:0.0482821
-
-Running Global Swap for detailed placement...
-Found position for 23 among all 4475 cells
-Found position for 0 among all 4475 cells
-
-Global Swap finished in 0.00780106 seconds
-
-Running LR for detailed placement...
-
-Running LR for detailed placement...
-
-Running ISM for detailed placement...
- iteration: 0 HPWL=19827036 (0.001%)(0.001%)   time: 0 sec   all: 0 sec
-Consider independent cells and enabled double window now
- iteration: 1 HPWL=19812420 (-0.074%)(-0.073%)   time: 0 sec   all: 0 sec
-ISM result: Pin-to-pin HPWL= 1.98124e+07 (-0.0728355%)
-ISM total runtime:0.049511
-
-Running Global Swap for detailed placement...
-Found position for 10 among all 4475 cells
-Found position for 0 among all 4475 cells
-
-Global Swap finished in 0.008178 seconds
-
-Running LR for detailed placement...
-
-Running LR for detailed placement...
-
-Running ISM for detailed placement...
- iteration: 0 HPWL=19788033 (-0.043%)(-0.043%)   time: 0 sec   all: 0 sec
-Consider independent cells and enabled double window now
- iteration: 1 HPWL=19779316 (-0.044%)(-0.087%)   time: 0 sec   all: 0 sec
-ISM result: Pin-to-pin HPWL= 1.97793e+07 (-0.086995%)
-ISM total runtime:0.050396
-
-Running Global Swap for detailed placement...
-Found position for 10 among all 4475 cells
-Found position for 0 among all 4475 cells
-
-Global Swap finished in 0.00751305 seconds
-
-Running LR for detailed placement...
-
-Running LR for detailed placement...
-
-Running ISM for detailed placement...
- iteration: 0 HPWL=19767666 (0.016%)(0.016%)   time: 0 sec   all: 0 sec
-Consider independent cells and enabled double window now
- iteration: 1 HPWL=19760432 (-0.037%)(-0.020%)   time: 0 sec   all: 0 sec
-ISM result: Pin-to-pin HPWL= 1.97604e+07 (-0.0201878%)
-ISM total runtime:0.0472941
-
-Running Global Swap for detailed placement...
-Found position for 14 among all 4475 cells
-Found position for 1 among all 4475 cells
-
-Global Swap finished in 0.0114319 seconds
 mGP started!
-main length 6263
+main length 12849
 Iter 0
 isTiming
 [INFO] Running OpenROAD STA...
 [INFO] STA completed. Report generated: ./eplace_sta_report.rpt
-Total negative slack count: 220454
-WNS: -57
-TNS: -5530.52
+Total negative slack count: 688120
+WNS: -183.67
+TNS: -124122
 P2P weights updated based on STA report.
-Average displacement: 856
-avg|G|  WL 1.89e+08  DEN 1.17e+10  TIM 2.68e+08  DISP 7.32e+09
+Average displacement: 2
+avg|G|  WL 1.98e+03  DEN 1.23e+09  TIM 6.02e+03  DISP 3.16e+08
 stepSize : 1.000000
-Overflow: 0.0950683
-penalty factor: 0.000004
-HPWL: 20615198.000000
-curTNS: 5530.520020
-lastTNS: 5530.520020
+Average displacement: 2
+avg|G|  WL 1.98e+03  DEN 1.23e+09  TIM 6.80e+03  DISP 3.16e+08
+Overflow: 0.00016478
+penalty factor: 0.000003
+HPWL: 22929040.000000
+curTNS: 124122.109375
+lastTNS: 124122.109375
 
 INFO: BMP HAS BEEN SAVED: mGP Iter-0.bmp
 Iter 1
-Average displacement: 752
-avg|G|  WL 1.93e+08  DEN 1.18e+10  TIM 3.75e+08  DISP 7.43e+09
-lip=0.112866,bb_short=-0.093870,bb_long=-0.135710
-stepSize : 0.112866
-Overflow: 0.128451
+Average displacement: 2
+avg|G|  WL 1.96e+03  DEN 1.23e+09  TIM 6.80e+03  DISP 3.16e+08
+stepSize : 22.717932
+Average displacement: 12
+avg|G|  WL 1.92e+03  DEN 1.22e+09  TIM 2.95e+04  DISP 3.12e+08
+Overflow: 0.000201
 penalty factor: 0.000004
-HPWL: 20100142.000000
-curTNS: 5530.520020
-lastTNS: 5530.520020
+HPWL: 22851002.000000
+curTNS: 124122.109375
+lastTNS: 124122.109375
 
 Iter 2
-Average displacement: 733
-avg|G|  WL 1.91e+08  DEN 1.16e+10  TIM 3.01e+08  DISP 7.48e+09
-lip=0.062498,bb_short=-0.057200,bb_long=-0.068288
-stepSize : 0.062498
-Overflow: 0.130470
+Average displacement: 12
+avg|G|  WL 1.90e+03  DEN 1.21e+09  TIM 2.95e+04  DISP 3.12e+08
+stepSize : 776.427185
+Average displacement: 402
+avg|G|  WL 1.40e+03  DEN 6.49e+08  TIM 8.88e+05  DISP 1.65e+08
+Overflow: 0.016140
 penalty factor: 0.000004
-HPWL: 20160296.000000
-curTNS: 5530.520020
-lastTNS: 5530.520020
+HPWL: 21775870.000000
+curTNS: 124122.109375
+lastTNS: 124122.109375
 
 Iter 3
-Average displacement: 698
-avg|G|  WL 1.90e+08  DEN 1.17e+10  TIM 1.73e+08  DISP 7.08e+09
-lip=0.052630,bb_short=-0.049535,bb_long=-0.055918
-stepSize : 0.052630
-Overflow: 0.131723
+Average displacement: 402
+avg|G|  WL 1.39e+03  DEN 6.47e+08  TIM 8.88e+05  DISP 1.65e+08
+stepSize : 1586.638428
+Average displacement: 671
+avg|G|  WL 1.82e+03  DEN 2.78e+08  TIM 1.62e+06  DISP 7.18e+07
+Overflow: 0.057763
 penalty factor: 0.000004
-HPWL: 20106122.000000
-curTNS: 5530.520020
-lastTNS: 5530.520020
+HPWL: 21915540.000000
+curTNS: 124122.109375
+lastTNS: 124122.109375
 
 Iter 4
-Average displacement: 692
-avg|G|  WL 1.90e+08  DEN 1.17e+10  TIM 1.50e+08  DISP 7.05e+09
-lip=0.144613,bb_short=-0.123126,bb_long=-0.169851
-stepSize : 0.144613
-Overflow: 0.133428
+Average displacement: 671
+avg|G|  WL 1.82e+03  DEN 2.78e+08  TIM 1.62e+06  DISP 7.18e+07
+stepSize : 1693.776733
+Average displacement: 1043
+avg|G|  WL 3.08e+03  DEN 2.92e+08  TIM 2.55e+06  DISP 9.06e+07
+bktrk!
+Average displacement: 875
+avg|G|  WL 2.18e+03  DEN 2.69e+08  TIM 2.04e+06  DISP 8.02e+07
+bktrk!
+Average displacement: 822
+avg|G|  WL 1.65e+03  DEN 2.77e+08  TIM 1.89e+06  DISP 7.71e+07
+Overflow: 0.096469
 penalty factor: 0.000004
-HPWL: 20074750.000000
-curTNS: 5530.520020
-lastTNS: 5530.520020
+HPWL: 21405848.000000
+curTNS: 124122.109375
+lastTNS: 124122.109375
 
 Iter 5
-Average displacement: 670
-avg|G|  WL 1.90e+08  DEN 1.17e+10  TIM 1.23e+08  DISP 6.99e+09
-lip=0.130615,bb_short=-0.124372,bb_long=-0.137174
-stepSize : 0.130615
-Overflow: 0.135745
+Average displacement: 822
+avg|G|  WL 1.64e+03  DEN 2.76e+08  TIM 1.89e+06  DISP 7.71e+07
+stepSize : 854.504822
+Average displacement: 831
+avg|G|  WL 1.40e+03  DEN 1.94e+08  TIM 1.95e+06  DISP 6.17e+07
+bktrk!
+Average displacement: 827
+avg|G|  WL 1.15e+03  DEN 2.09e+08  TIM 1.92e+06  DISP 6.46e+07
+Overflow: 0.117955
 penalty factor: 0.000004
-HPWL: 20065736.000000
-curTNS: 5530.520020
-lastTNS: 5530.520020
+HPWL: 20577298.000000
+curTNS: 124122.109375
+lastTNS: 124122.109375
 
 Iter 6
-Average displacement: 657
-avg|G|  WL 1.90e+08  DEN 1.16e+10  TIM 1.19e+08  DISP 6.97e+09
-lip=0.211687,bb_short=-0.198550,bb_long=-0.225693
-stepSize : 0.211687
-Overflow: 0.138477
-penalty factor: 0.000004
-HPWL: 20061518.000000
-curTNS: 5530.520020
-lastTNS: 5530.520020
+Average displacement: 827
+avg|G|  WL 1.14e+03  DEN 2.08e+08  TIM 1.92e+06  DISP 6.46e+07
+stepSize : 761.255066
+Average displacement: 869
+avg|G|  WL 8.70e+02  DEN 1.62e+08  TIM 2.01e+06  DISP 6.01e+07
+Overflow: 0.134088
+penalty factor: 0.000005
+HPWL: 20162230.000000
+curTNS: 124122.109375
+lastTNS: 124122.109375
 
 Iter 7
-Average displacement: 642
-avg|G|  WL 1.90e+08  DEN 1.16e+10  TIM 1.17e+08  DISP 6.95e+09
-lip=0.402041,bb_short=-0.327883,bb_long=-0.492972
-stepSize : 0.402041
-Overflow: 0.142717
-penalty factor: 0.000004
-HPWL: 20061006.000000
-curTNS: 5530.520020
-lastTNS: 5530.520020
+Average displacement: 869
+avg|G|  WL 8.64e+02  DEN 1.61e+08  TIM 2.01e+06  DISP 6.01e+07
+stepSize : 809.533752
+Average displacement: 885
+avg|G|  WL 7.79e+02  DEN 1.31e+08  TIM 2.04e+06  DISP 5.73e+07
+Overflow: 0.139726
+penalty factor: 0.000005
+HPWL: 19969978.000000
+curTNS: 124122.109375
+lastTNS: 124122.109375
 
 Iter 8
-Average displacement: 623
-avg|G|  WL 1.89e+08  DEN 1.16e+10  TIM 1.15e+08  DISP 6.92e+09
-lip=1.716707,bb_short=-1.469043,bb_long=-2.006111
-stepSize : 1.716701
-Overflow: 0.148029
-penalty factor: 0.000004
-HPWL: 20081050.000000
-curTNS: 5530.520020
-lastTNS: 5530.520020
+Average displacement: 885
+avg|G|  WL 7.72e+02  DEN 1.31e+08  TIM 2.04e+06  DISP 5.73e+07
+stepSize : 862.046936
+Average displacement: 924
+avg|G|  WL 7.56e+02  DEN 1.27e+08  TIM 2.15e+06  DISP 5.87e+07
+Overflow: 0.145777
+penalty factor: 0.000005
+HPWL: 19880900.000000
+curTNS: 124122.109375
+lastTNS: 124122.109375
 
 Iter 9
-Average displacement: 573
-avg|G|  WL 1.89e+08  DEN 1.13e+10  TIM 1.13e+08  DISP 6.78e+09
-lip=2.226383,bb_short=-1.792529,bb_long=-2.765219
-stepSize : 2.226373
-Overflow: 0.164171
-penalty factor: 0.000004
-HPWL: 20125474.000000
-curTNS: 5530.520020
-lastTNS: 5530.520020
+Average displacement: 924
+avg|G|  WL 7.49e+02  DEN 1.26e+08  TIM 2.15e+06  DISP 5.86e+07
+stepSize : 874.849060
+Average displacement: 951
+avg|G|  WL 7.48e+02  DEN 1.25e+08  TIM 2.21e+06  DISP 6.03e+07
+Overflow: 0.146354
+penalty factor: 0.000005
+HPWL: 19814628.000000
+curTNS: 124122.109375
+lastTNS: 124122.109375
 
 Iter 10
-Average displacement: 527
-avg|G|  WL 1.89e+08  DEN 1.10e+10  TIM 1.11e+08  DISP 6.57e+09
-lip=1.812573,bb_short=-1.332239,bb_long=-2.466063
-stepSize : 1.812563
-Overflow: 0.179219
-penalty factor: 0.000004
-HPWL: 20175804.000000
-curTNS: 5530.520020
-lastTNS: 5530.520020
-
-INFO: BMP HAS BEEN SAVED: mGP Iter-10.bmp
-Iter 11
-Average displacement: 496
-avg|G|  WL 1.89e+08  DEN 1.07e+10  TIM 1.11e+08  DISP 6.37e+09
-lip=0.755149,bb_short=-0.636364,bb_long=-0.896101
-stepSize : 0.755147
-Overflow: 0.190386
-penalty factor: 0.000004
-HPWL: 20221414.000000
-curTNS: 5530.520020
-lastTNS: 5530.520020
-
-Iter 12
-Average displacement: 476
-avg|G|  WL 1.89e+08  DEN 1.04e+10  TIM 1.10e+08  DISP 6.21e+09
-lip=0.373887,bb_short=-0.352596,bb_long=-0.396463
-stepSize : 0.373887
-Overflow: 0.197121
-penalty factor: 0.000004
-HPWL: 20263380.000000
-curTNS: 5530.520020
-lastTNS: 5530.520020
-
-Iter 13
-Average displacement: 460
-avg|G|  WL 1.89e+08  DEN 1.02e+10  TIM 1.10e+08  DISP 6.09e+09
-lip=0.340116,bb_short=-0.328468,bb_long=-0.352177
-stepSize : 0.340116
-Overflow: 0.201482
-penalty factor: 0.000004
-HPWL: 20301614.000000
-curTNS: 5530.520020
-lastTNS: 5530.520020
-
-Iter 14
-Average displacement: 445
-avg|G|  WL 1.89e+08  DEN 1.00e+10  TIM 1.10e+08  DISP 5.98e+09
-lip=0.451487,bb_short=-0.408779,bb_long=-0.498655
-stepSize : 0.451486
-Overflow: 0.204324
-penalty factor: 0.000004
-HPWL: 20335714.000000
-curTNS: 5530.520020
-lastTNS: 5530.520020
-
-Iter 15
 isTiming
 [INFO] Running OpenROAD STA...
 [INFO] STA completed. Report generated: ./eplace_sta_report.rpt
-Total negative slack count: 213316
-WNS: -56.680000
-TNS: -4825.899902
+Total negative slack count: 698563
+WNS: -186.229996
+TNS: -124205.656250
 P2P weights updated based on STA report.
-Average displacement: 436
-avg|G|  WL 1.90e+08  DEN 9.82e+09  TIM 1.11e+08  DISP 5.86e+09
-lip=21.332104,bb_short=-10.243798,bb_long=-44.422829
-stepSize : 21.332100
-Overflow: 0.206787
-penalty factor: 0.000004
-HPWL: 20445542.000000
-curTNS: 4825.899902
-lastTNS: 4825.899902
+Average displacement: 951
+avg|G|  WL 7.42e+02  DEN 1.24e+08  TIM 2.21e+06  DISP 6.03e+07
+stepSize : 861.754944
+Average displacement: 993
+avg|G|  WL 7.27e+02  DEN 1.17e+08  TIM 2.34e+06  DISP 5.98e+07
+Overflow: 0.146435
+penalty factor: 0.000006
+HPWL: 19728136.000000
+curTNS: 124205.656250
+lastTNS: 124205.656250
+
+INFO: BMP HAS BEEN SAVED: mGP Iter-10.bmp
+Iter 11
+Average displacement: 993
+avg|G|  WL 7.20e+02  DEN 1.16e+08  TIM 2.34e+06  DISP 5.98e+07
+stepSize : 860.876892
+Average displacement: 1018
+avg|G|  WL 7.04e+02  DEN 1.11e+08  TIM 2.40e+06  DISP 5.94e+07
+Overflow: 0.145708
+penalty factor: 0.000006
+HPWL: 19643334.000000
+curTNS: 124205.656250
+lastTNS: 124205.656250
+
+Iter 12
+Average displacement: 1018
+avg|G|  WL 6.97e+02  DEN 1.11e+08  TIM 2.40e+06  DISP 5.94e+07
+stepSize : 868.410828
+Average displacement: 1054
+avg|G|  WL 6.97e+02  DEN 1.05e+08  TIM 2.51e+06  DISP 5.77e+07
+Overflow: 0.144044
+penalty factor: 0.000006
+HPWL: 19592582.000000
+curTNS: 124205.656250
+lastTNS: 124205.656250
+
+Iter 13
+Average displacement: 1054
+avg|G|  WL 6.89e+02  DEN 1.04e+08  TIM 2.51e+06  DISP 5.76e+07
+stepSize : 881.747742
+Average displacement: 1075
+avg|G|  WL 7.04e+02  DEN 9.78e+07  TIM 2.57e+06  DISP 5.51e+07
+Overflow: 0.142057
+penalty factor: 0.000006
+HPWL: 19555246.000000
+curTNS: 124205.656250
+lastTNS: 124205.656250
+
+Iter 14
+Average displacement: 1075
+avg|G|  WL 6.97e+02  DEN 9.70e+07  TIM 2.57e+06  DISP 5.51e+07
+stepSize : 873.110107
+Average displacement: 1106
+avg|G|  WL 7.06e+02  DEN 9.19e+07  TIM 2.67e+06  DISP 5.33e+07
+Overflow: 0.139900
+penalty factor: 0.000007
+HPWL: 19518074.000000
+curTNS: 124205.656250
+lastTNS: 124205.656250
+
+Iter 15
+Average displacement: 1106
+avg|G|  WL 6.98e+02  DEN 9.12e+07  TIM 2.67e+06  DISP 5.33e+07
+stepSize : 857.264954
+Average displacement: 1125
+avg|G|  WL 6.93e+02  DEN 8.72e+07  TIM 2.72e+06  DISP 5.15e+07
+Overflow: 0.137886
+penalty factor: 0.000007
+HPWL: 19442290.000000
+curTNS: 124205.656250
+lastTNS: 124205.656250
 
 Iter 16
-Average displacement: 433
-avg|G|  WL 1.90e+08  DEN 7.66e+09  TIM 1.13e+08  DISP 4.66e+09
-lip=1.176235,bb_short=-0.609545,bb_long=-2.269735
-stepSize : 1.176225
-Overflow: 0.231831
-penalty factor: 0.000004
-HPWL: 20572130.000000
-curTNS: 4825.899902
-lastTNS: 4825.899902
+Average displacement: 1125
+avg|G|  WL 6.85e+02  DEN 8.57e+07  TIM 2.66e+06  DISP 5.04e+07
+stepSize : 843.658142
+Average displacement: 1155
+avg|G|  WL 6.72e+02  DEN 8.39e+07  TIM 2.76e+06  DISP 4.96e+07
+Overflow: 0.135840
+penalty factor: 0.000007
+HPWL: 19376010.000000
+curTNS: 124205.656250
+lastTNS: 124205.656250
 
 Iter 17
-Average displacement: 440
-avg|G|  WL 1.90e+08  DEN 6.69e+09  TIM 1.55e+08  DISP 4.16e+09
-lip=0.130403,bb_short=-0.112261,bb_long=-0.151476
-stepSize : 0.130403
-Overflow: 0.240784
-penalty factor: 0.000004
-HPWL: 20670972.000000
-curTNS: 4825.899902
-lastTNS: 4825.899902
+Average displacement: 1155
+avg|G|  WL 6.64e+02  DEN 8.14e+07  TIM 2.63e+06  DISP 4.73e+07
+stepSize : 839.924927
+Average displacement: 1175
+avg|G|  WL 6.60e+02  DEN 7.91e+07  TIM 2.67e+06  DISP 4.57e+07
+Overflow: 0.132522
+penalty factor: 0.000008
+HPWL: 19311688.000000
+curTNS: 124205.656250
+lastTNS: 124205.656250
 
 Iter 18
-Average displacement: 448
-avg|G|  WL 1.90e+08  DEN 5.90e+09  TIM 1.67e+08  DISP 3.73e+09
-lip=0.073079,bb_short=-0.070046,bb_long=-0.076243
-stepSize : 0.073079
-Overflow: 0.246549
-penalty factor: 0.000004
-HPWL: 20722442.000000
-curTNS: 4825.899902
-lastTNS: 4825.899902
+Average displacement: 1175
+avg|G|  WL 6.52e+02  DEN 7.67e+07  TIM 2.54e+06  DISP 4.36e+07
+stepSize : 836.321350
+Average displacement: 1204
+avg|G|  WL 6.51e+02  DEN 7.60e+07  TIM 2.62e+06  DISP 4.28e+07
+Overflow: 0.130071
+penalty factor: 0.000008
+HPWL: 19266362.000000
+curTNS: 124205.656250
+lastTNS: 124205.656250
 
 Iter 19
-Average displacement: 460
-avg|G|  WL 1.90e+08  DEN 5.23e+09  TIM 1.42e+08  DISP 3.34e+09
-lip=0.074998,bb_short=-0.073038,bb_long=-0.077010
-stepSize : 0.074998
-Overflow: 0.250257
-penalty factor: 0.000004
-HPWL: 20794520.000000
-curTNS: 4825.899902
-lastTNS: 4825.899902
+Average displacement: 1204
+avg|G|  WL 6.43e+02  DEN 7.37e+07  TIM 2.50e+06  DISP 4.08e+07
+stepSize : 829.803711
+Average displacement: 1223
+avg|G|  WL 6.41e+02  DEN 7.21e+07  TIM 2.53e+06  DISP 3.96e+07
+Overflow: 0.128829
+penalty factor: 0.000009
+HPWL: 19214512.000000
+curTNS: 124205.656250
+lastTNS: 124205.656250
 
 Iter 20
-Average displacement: 470
-avg|G|  WL 1.89e+08  DEN 4.75e+09  TIM 1.12e+08  DISP 3.00e+09
-lip=0.086963,bb_short=-0.078481,bb_long=-0.096361
-stepSize : 0.086963
-Overflow: 0.253152
-penalty factor: 0.000004
-HPWL: 20868924.000000
-curTNS: 4825.899902
-lastTNS: 4825.899902
+isTiming
+[INFO] Running OpenROAD STA...
+[INFO] STA completed. Report generated: ./eplace_sta_report.rpt
+Total negative slack count: 696487
+WNS: -186.800003
+TNS: -124168.539062
+P2P weights updated based on STA report.
+Average displacement: 1223
+avg|G|  WL 6.33e+02  DEN 6.99e+07  TIM 2.41e+06  DISP 3.78e+07
+stepSize : 827.592773
+Average displacement: 1248
+avg|G|  WL 6.30e+02  DEN 6.68e+07  TIM 2.48e+06  DISP 3.60e+07
+Overflow: 0.126706
+penalty factor: 0.000009
+HPWL: 19178954.000000
+curTNS: 124168.539062
+lastTNS: 124168.539062
 
 INFO: BMP HAS BEEN SAVED: mGP Iter-20.bmp
 Iter 21
-Average displacement: 484
-avg|G|  WL 1.89e+08  DEN 4.39e+09  TIM 1.12e+08  DISP 2.73e+09
-lip=0.450721,bb_short=-0.140058,bb_long=-1.450457
-stepSize : 0.450720
-Overflow: 0.255469
-penalty factor: 0.000004
-HPWL: 20942454.000000
-curTNS: 4825.899902
-lastTNS: 4825.899902
+Average displacement: 1248
+avg|G|  WL 6.22e+02  DEN 6.48e+07  TIM 2.36e+06  DISP 3.44e+07
+stepSize : 834.376099
+Average displacement: 1265
+avg|G|  WL 6.27e+02  DEN 6.22e+07  TIM 2.38e+06  DISP 3.28e+07
+Overflow: 0.125014
+penalty factor: 0.000009
+HPWL: 19146954.000000
+curTNS: 124168.539062
+lastTNS: 124168.539062
 
 Iter 22
-Average displacement: 491
-avg|G|  WL 1.89e+08  DEN 4.11e+09  TIM 1.11e+08  DISP 2.49e+09
-lip=0.692949,bb_short=-0.642535,bb_long=-0.747312
-stepSize : 0.692946
-Overflow: 0.257469
-penalty factor: 0.000004
-HPWL: 20991112.000000
-curTNS: 4825.899902
-lastTNS: 4825.899902
+Average displacement: 1265
+avg|G|  WL 6.19e+02  DEN 6.03e+07  TIM 2.27e+06  DISP 3.13e+07
+stepSize : 821.446350
+Average displacement: 1288
+avg|G|  WL 6.15e+02  DEN 6.13e+07  TIM 2.32e+06  DISP 2.96e+07
+Overflow: 0.122380
+penalty factor: 0.000010
+HPWL: 19116390.000000
+curTNS: 124168.539062
+lastTNS: 124168.539062
 
 Iter 23
-Average displacement: 500
-avg|G|  WL 1.89e+08  DEN 3.89e+09  TIM 1.11e+08  DISP 2.30e+09
-lip=3.180659,bb_short=-1.330055,bb_long=-7.606108
-stepSize : 3.180651
-Overflow: 0.258906
-penalty factor: 0.000004
-HPWL: 20992798.000000
-curTNS: 4825.899902
-lastTNS: 4825.899902
+Average displacement: 1288
+avg|G|  WL 6.07e+02  DEN 5.94e+07  TIM 2.21e+06  DISP 2.83e+07
+stepSize : 809.869751
+Average displacement: 1303
+avg|G|  WL 5.97e+02  DEN 5.58e+07  TIM 2.23e+06  DISP 2.73e+07
+Overflow: 0.120172
+penalty factor: 0.000010
+HPWL: 19055238.000000
+curTNS: 124168.539062
+lastTNS: 124168.539062
 
 Iter 24
-Average displacement: 500
-avg|G|  WL 1.90e+08  DEN 3.65e+09  TIM 1.10e+08  DISP 2.12e+09
-lip=0.476117,bb_short=-0.426449,bb_long=-0.531569
-stepSize : 0.476117
-Overflow: 0.257816
-penalty factor: 0.000004
-HPWL: 21055000.000000
-curTNS: 4825.899902
-lastTNS: 4825.899902
+Average displacement: 1303
+avg|G|  WL 5.89e+02  DEN 5.40e+07  TIM 2.13e+06  DISP 2.60e+07
+stepSize : 805.972351
+Average displacement: 1325
+avg|G|  WL 5.79e+02  DEN 5.37e+07  TIM 2.17e+06  DISP 2.56e+07
+Overflow: 0.117617
+penalty factor: 0.000011
+HPWL: 19016868.000000
+curTNS: 124168.539062
+lastTNS: 124168.539062
 
 Iter 25
-Average displacement: 507
-avg|G|  WL 1.90e+08  DEN 3.49e+09  TIM 1.10e+08  DISP 1.97e+09
-lip=0.375018,bb_short=-0.361266,bb_long=-0.389293
-stepSize : 0.375017
-Overflow: 0.256775
-penalty factor: 0.000004
-HPWL: 21067674.000000
-curTNS: 4825.899902
-lastTNS: 4825.899902
+Average displacement: 1325
+avg|G|  WL 5.71e+02  DEN 5.20e+07  TIM 2.07e+06  DISP 2.45e+07
+stepSize : 802.025757
+Average displacement: 1341
+avg|G|  WL 5.65e+02  DEN 4.88e+07  TIM 2.09e+06  DISP 2.38e+07
+Overflow: 0.115321
+penalty factor: 0.000011
+HPWL: 18971210.000000
+curTNS: 124168.539062
+lastTNS: 124168.539062
 
 Iter 26
-Average displacement: 512
-avg|G|  WL 1.90e+08  DEN 3.35e+09  TIM 1.10e+08  DISP 1.84e+09
-lip=0.546842,bb_short=-0.504404,bb_long=-0.592849
-stepSize : 0.546842
-Overflow: 0.256875
-penalty factor: 0.000004
-HPWL: 21094494.000000
-curTNS: 4825.899902
-lastTNS: 4825.899902
+Average displacement: 1341
+avg|G|  WL 5.56e+02  DEN 4.73e+07  TIM 1.99e+06  DISP 2.27e+07
+stepSize : 808.441406
+Average displacement: 1363
+avg|G|  WL 5.58e+02  DEN 4.62e+07  TIM 2.02e+06  DISP 2.24e+07
+Overflow: 0.112965
+penalty factor: 0.000012
+HPWL: 18949420.000000
+curTNS: 124168.539062
+lastTNS: 124168.539062
 
 Iter 27
-Average displacement: 519
-avg|G|  WL 1.90e+08  DEN 3.24e+09  TIM 1.11e+08  DISP 1.73e+09
-lip=1.675161,bb_short=-0.962289,bb_long=-2.916084
-stepSize : 1.675147
-Overflow: 0.256314
-penalty factor: 0.000004
-HPWL: 21114944.000000
-curTNS: 4825.899902
-lastTNS: 4825.899902
+Average displacement: 1363
+avg|G|  WL 5.50e+02  DEN 4.48e+07  TIM 1.93e+06  DISP 2.14e+07
+stepSize : 805.799500
+Average displacement: 1376
+avg|G|  WL 5.51e+02  DEN 4.28e+07  TIM 1.94e+06  DISP 2.06e+07
+Overflow: 0.110280
+penalty factor: 0.000013
+HPWL: 18924902.000000
+curTNS: 124168.539062
+lastTNS: 124168.539062
 
 Iter 28
-Average displacement: 518
-avg|G|  WL 1.90e+08  DEN 3.11e+09  TIM 1.10e+08  DISP 1.65e+09
-lip=1.557078,bb_short=-1.406117,bb_long=-1.724231
-stepSize : 1.557071
-Overflow: 0.255330
-penalty factor: 0.000004
-HPWL: 21115062.000000
-curTNS: 4825.899902
-lastTNS: 4825.899902
+Average displacement: 1376
+avg|G|  WL 5.42e+02  DEN 4.15e+07  TIM 1.85e+06  DISP 1.97e+07
+stepSize : 795.682495
+Average displacement: 1393
+avg|G|  WL 5.37e+02  DEN 3.98e+07  TIM 1.87e+06  DISP 1.87e+07
+Overflow: 0.107475
+penalty factor: 0.000013
+HPWL: 18900040.000000
+curTNS: 124168.539062
+lastTNS: 124168.539062
 
 Iter 29
-Average displacement: 516
-avg|G|  WL 1.89e+08  DEN 2.96e+09  TIM 1.10e+08  DISP 1.57e+09
-lip=1.617544,bb_short=-1.413607,bb_long=-1.850883
-stepSize : 1.617536
-Overflow: 0.253786
-penalty factor: 0.000004
-HPWL: 21115422.000000
-curTNS: 4825.899902
-lastTNS: 4825.899902
+Average displacement: 1393
+avg|G|  WL 5.28e+02  DEN 3.86e+07  TIM 1.78e+06  DISP 1.79e+07
+stepSize : 791.570740
+Average displacement: 1405
+avg|G|  WL 5.23e+02  DEN 3.69e+07  TIM 1.79e+06  DISP 1.69e+07
+Overflow: 0.105834
+penalty factor: 0.000014
+HPWL: 18863508.000000
+curTNS: 124168.539062
+lastTNS: 124168.539062
 
 Iter 30
 isTiming
 [INFO] Running OpenROAD STA...
 [INFO] STA completed. Report generated: ./eplace_sta_report.rpt
-Total negative slack count: 214912
-WNS: -56.889999
-TNS: -5030.020020
+Total negative slack count: 694775
+WNS: -183.300003
+TNS: -121824.539062
 P2P weights updated based on STA report.
-Average displacement: 511
-avg|G|  WL 1.89e+08  DEN 2.81e+09  TIM 1.10e+08  DISP 1.50e+09
-lip=2.976413,bb_short=-2.129683,bb_long=-4.159766
-stepSize : 2.976404
-Overflow: 0.251729
-penalty factor: 0.000004
-HPWL: 21103222.000000
-curTNS: 5030.020020
-lastTNS: 5030.020020
+Average displacement: 1405
+avg|G|  WL 5.14e+02  DEN 3.57e+07  TIM 1.70e+06  DISP 1.62e+07
+stepSize : 795.899292
+Average displacement: 1422
+avg|G|  WL 5.13e+02  DEN 3.49e+07  TIM 1.72e+06  DISP 1.59e+07
+Overflow: 0.104035
+penalty factor: 0.000015
+HPWL: 18839996.000000
+curTNS: 121824.539062
+lastTNS: 121824.539062
 
 INFO: BMP HAS BEEN SAVED: mGP Iter-30.bmp
 Iter 31
-Average displacement: 503
-avg|G|  WL 1.89e+08  DEN 2.62e+09  TIM 1.10e+08  DISP 1.43e+09
-lip=22.414198,bb_short=-11.058504,bb_long=-45.430637
-stepSize : 22.414167
-Overflow: 0.248674
-penalty factor: 0.000004
-HPWL: 20979890.000000
-curTNS: 5030.020020
-lastTNS: 5030.020020
+Average displacement: 1422
+avg|G|  WL 5.04e+02  DEN 3.37e+07  TIM 1.64e+06  DISP 1.52e+07
+stepSize : 798.352722
+Average displacement: 1434
+avg|G|  WL 5.05e+02  DEN 3.27e+07  TIM 1.65e+06  DISP 1.48e+07
+Overflow: 0.101852
+penalty factor: 0.000015
+HPWL: 18818004.000000
+curTNS: 121824.539062
+lastTNS: 121824.539062
 
 Iter 32
-Average displacement: 458
-avg|G|  WL 1.88e+08  DEN 1.95e+09  TIM 1.09e+08  DISP 1.30e+09
-lip=9.639766,bb_short=-4.833588,bb_long=-19.224861
-stepSize : 9.639765
-Overflow: 0.235002
-penalty factor: 0.000004
-HPWL: 20951988.000000
-curTNS: 5030.020020
-lastTNS: 5030.020020
+Average displacement: 1434
+avg|G|  WL 4.96e+02  DEN 3.17e+07  TIM 1.57e+06  DISP 1.42e+07
+stepSize : 796.322754
+Average displacement: 1452
+avg|G|  WL 4.95e+02  DEN 3.10e+07  TIM 1.59e+06  DISP 1.34e+07
+Overflow: 0.099865
+penalty factor: 0.000016
+HPWL: 18796568.000000
+curTNS: 121824.539062
+lastTNS: 121824.539062
 
-Iter 33
-Average displacement: 439
-avg|G|  WL 1.87e+08  DEN 1.75e+09  TIM 1.09e+08  DISP 1.22e+09
-lip=0.166569,bb_short=-0.141484,bb_long=-0.196101
-stepSize : 0.166568
-Overflow: 0.231521
-penalty factor: 0.000004
-HPWL: 20910284.000000
-curTNS: 5030.020020
-lastTNS: 5030.020020
-
-Iter 34
-Average displacement: 420
-avg|G|  WL 1.87e+08  DEN 1.79e+09  TIM 1.08e+08  DISP 1.18e+09
-lip=0.067317,bb_short=-0.063920,bb_long=-0.070894
-stepSize : 0.067317
-Overflow: 0.231407
-penalty factor: 0.000004
-HPWL: 20875740.000000
-curTNS: 5030.020020
-lastTNS: 5030.020020
-
-Iter 35
-Average displacement: 405
-avg|G|  WL 1.86e+08  DEN 1.90e+09  TIM 1.08e+08  DISP 1.13e+09
-lip=0.063929,bb_short=-0.062383,bb_long=-0.065514
-stepSize : 0.063929
-Overflow: 0.233528
-penalty factor: 0.000004
-HPWL: 20864022.000000
-curTNS: 5030.020020
-lastTNS: 5030.020020
-
-Iter 36
-Average displacement: 395
-avg|G|  WL 1.86e+08  DEN 2.00e+09  TIM 1.08e+08  DISP 1.10e+09
-lip=0.093831,bb_short=-0.080073,bb_long=-0.109951
-stepSize : 0.093831
-Overflow: 0.236672
-penalty factor: 0.000004
-HPWL: 20859806.000000
-curTNS: 5030.020020
-lastTNS: 5030.020020
-
-Iter 37
-Average displacement: 392
-avg|G|  WL 1.85e+08  DEN 2.10e+09  TIM 1.08e+08  DISP 1.10e+09
-lip=2.922848,bb_short=-0.861313,bb_long=-9.918539
-stepSize : 2.922835
-Overflow: 0.240029
-penalty factor: 0.000004
-HPWL: 20875298.000000
-curTNS: 5030.020020
-lastTNS: 5030.020020
-
-Iter 38
-Average displacement: 388
-avg|G|  WL 1.85e+08  DEN 2.11e+09  TIM 1.08e+08  DISP 1.09e+09
-lip=0.328062,bb_short=-0.271377,bb_long=-0.396588
-stepSize : 0.328062
-Overflow: 0.242524
-penalty factor: 0.000004
-HPWL: 20873332.000000
-curTNS: 5030.020020
-lastTNS: 5030.020020
-
-Iter 39
-Average displacement: 397
-avg|G|  WL 1.85e+08  DEN 2.15e+09  TIM 1.08e+08  DISP 1.15e+09
-lip=0.044392,bb_short=-0.043587,bb_long=-0.045212
-stepSize : 0.044392
-Overflow: 0.245563
-penalty factor: 0.000004
-HPWL: 20896898.000000
-curTNS: 5030.020020
-lastTNS: 5030.020020
-
-Iter 40
-Average displacement: 401
-avg|G|  WL 1.85e+08  DEN 2.19e+09  TIM 1.10e+08  DISP 1.10e+09
-lip=0.044259,bb_short=-0.043605,bb_long=-0.044923
-stepSize : 0.044259
-Overflow: 0.248540
-penalty factor: 0.000004
-HPWL: 20906662.000000
-curTNS: 5030.020020
-lastTNS: 5030.020020
-
-INFO: BMP HAS BEEN SAVED: mGP Iter-40.bmp
-Iter 41
-Average displacement: 410
-avg|G|  WL 1.84e+08  DEN 2.22e+09  TIM 1.11e+08  DISP 1.11e+09
-lip=0.191613,bb_short=-0.106340,bb_long=-0.345266
-stepSize : 0.191613
-Overflow: 0.251097
-penalty factor: 0.000004
-HPWL: 20895304.000000
-curTNS: 5030.020020
-lastTNS: 5030.020020
-
-Iter 42
-Average displacement: 415
-avg|G|  WL 1.84e+08  DEN 2.25e+09  TIM 1.09e+08  DISP 1.12e+09
-lip=0.425776,bb_short=-0.378029,bb_long=-0.479554
-stepSize : 0.425776
-Overflow: 0.253455
-penalty factor: 0.000004
-HPWL: 20890396.000000
-curTNS: 5030.020020
-lastTNS: 5030.020020
-
-Iter 43
-Average displacement: 420
-avg|G|  WL 1.84e+08  DEN 2.27e+09  TIM 1.08e+08  DISP 1.13e+09
-lip=1.164288,bb_short=-0.988925,bb_long=-1.370734
-stepSize : 1.164283
-Overflow: 0.255582
-penalty factor: 0.000004
-HPWL: 20881896.000000
-curTNS: 5030.020020
-lastTNS: 5030.020020
-
-Iter 44
-Average displacement: 423
-avg|G|  WL 1.84e+08  DEN 2.25e+09  TIM 1.07e+08  DISP 1.14e+09
-lip=2.200847,bb_short=-1.420360,bb_long=-3.410178
-stepSize : 2.200836
-Overflow: 0.256671
-penalty factor: 0.000004
-HPWL: 20872084.000000
-curTNS: 5030.020020
-lastTNS: 5030.020020
-
-Iter 45
+final
+[INFO] Running OpenROAD STA...
+[INFO] STA completed. Report generated: ./eplace_sta_report.rpt
+Total negative slack count: 696593
+WNS: -181.600006
+TNS: -121546.343750
+P2P weights updated based on STA report.
+mGP finished!
+Final HPWL: 18666693
+mGP time: 81.794864
+INFO: BMP HAS BEEN SAVED: mGP result.bmp
+Output PL file:./eplace_solution-eGP.pl
+Calling internal legalizer: 
+Global HPWL: 18666693
+Legal HPWL: 20975394
+INFO: BMP HAS BEEN SAVED: Cell legalized result.bmp
+Output PL file:./eplace_solution-eLG.pl
 isTiming
 [INFO] Running OpenROAD STA...
 [INFO] STA completed. Report generated: ./eplace_sta_report.rpt
-Total negative slack count: 214140
-WNS: -56.590000
-TNS: -4968.479980
+Total negative slack count: 694850
+WNS: -185.759995
+TNS: -123163.343750
 P2P weights updated based on STA report.
-Average displacement: 426
-avg|G|  WL 1.84e+08  DEN 2.17e+09  TIM 1.07e+08  DISP 1.12e+09
-lip=16.418758,bb_short=-9.951068,bb_long=-27.089920
-stepSize : 16.418697
-Overflow: 0.257086
-penalty factor: 0.000004
-HPWL: 20802878.000000
-curTNS: 4968.479980
-lastTNS: 4968.479980
-
-Iter 46
-Average displacement: 404
-avg|G|  WL 1.84e+08  DEN 1.63e+09  TIM 1.07e+08  DISP 9.76e+08
-lip=27.008217,bb_short=-19.774261,bb_long=-36.888531
-stepSize : 27.008211
-Overflow: 0.250255
-penalty factor: 0.000004
-HPWL: 20706508.000000
-curTNS: 4968.479980
-lastTNS: 4968.479980
-
-Iter 47
-Average displacement: 382
-avg|G|  WL 1.83e+08  DEN 1.08e+09  TIM 1.07e+08  DISP 7.67e+08
-lip=8.991391,bb_short=-5.076092,bb_long=-15.926575
-stepSize : 8.991371
-Overflow: 0.242133
-penalty factor: 0.000004
-HPWL: 20704454.000000
-curTNS: 4968.479980
-lastTNS: 4968.479980
-
-Iter 48
-Average displacement: 377
-avg|G|  WL 1.83e+08  DEN 1.10e+09  TIM 1.07e+08  DISP 6.71e+08
-lip=0.179657,bb_short=-0.153802,bb_long=-0.209858
-stepSize : 0.179657
-Overflow: 0.239129
-penalty factor: 0.000004
-HPWL: 20701298.000000
-curTNS: 4968.479980
-lastTNS: 4968.479980
-
-Iter 49
-Average displacement: 375
-avg|G|  WL 1.83e+08  DEN 1.29e+09  TIM 1.07e+08  DISP 6.30e+08
-lip=0.099690,bb_short=-0.095463,bb_long=-0.104103
-stepSize : 0.099690
-Overflow: 0.238881
-penalty factor: 0.000004
-HPWL: 20739954.000000
-curTNS: 4968.479980
-lastTNS: 4968.479980
-
-Iter 50
-Average displacement: 380
-avg|G|  WL 1.83e+08  DEN 1.53e+09  TIM 1.07e+08  DISP 6.32e+08
-lip=0.089612,bb_short=-0.087423,bb_long=-0.091856
-stepSize : 0.089612
-Overflow: 0.240712
-penalty factor: 0.000004
-HPWL: 20757248.000000
-curTNS: 4968.479980
-lastTNS: 4968.479980
-
-INFO: BMP HAS BEEN SAVED: mGP Iter-50.bmp
-mGP finished!
-Final HPWL: 20720324
-mGP time: 43.395493
-INFO: BMP HAS BEEN SAVED: mGP result.bmp
-Output PL file:./eplace_solution/aes_buf/aes_buf-eGP.pl
-Calling internal legalizer: 
-Global HPWL: 20720324
-Legal HPWL: 21021125
-INFO: BMP HAS BEEN SAVED: Cell legalized result.bmp
-Output PL file:./eplace_solution/aes_buf/aes_buf-eLG.pl
 Calling internal detailed placement: 
-HPWL before detailed placement: 21021125
+HPWL before detailed placement: 20975394
 
 Running LR for detailed placement...
 
 Running LR for detailed placement...
 
 Running ISM for detailed placement...
- iteration: 0 HPWL=20150253 (-1.985%)(-1.985%)   time: 0 sec   all: 0 sec
- iteration: 1 HPWL=20022945 (-0.632%)(-2.604%)   time: 0 sec   all: 0 sec
- iteration: 2 HPWL=19943457 (-0.397%)(-2.991%)   time: 0 sec   all: 0 sec
- iteration: 3 HPWL=19903606 (-0.200%)(-3.185%)   time: 0 sec   all: 0 sec
+ iteration: 0 HPWL=20523251 (-1.075%)(-1.075%)   time: 0 sec   all: 0 sec
+ iteration: 1 HPWL=20468723 (-0.266%)(-1.337%)   time: 0 sec   all: 0 sec
+ iteration: 2 HPWL=20452672 (-0.078%)(-1.415%)   time: 0 sec   all: 0 sec
 Consider independent cells and enabled double window now
- iteration: 4 HPWL=19849073 (-0.274%)(-3.450%)   time: 0 sec   all: 0 sec
-ISM result: Pin-to-pin HPWL= 19849073.000000 (-3.450105%)
-ISM total runtime:0.115906
+ iteration: 3 HPWL=20426829 (-0.126%)(-1.539%)   time: 0 sec   all: 0 sec
+ISM result: Pin-to-pin HPWL= 20426829.000000 (-1.539286%)
+ISM total runtime:0.198306
 
 Running Global Swap for detailed placement...
-Found position for 55 among all 4475 cells
-Found position for 5 among all 4475 cells
+Found position for 62 among all 7809 cells
+Found position for 6 among all 7809 cells
 
-Global Swap finished in 0.007259 seconds
+Global Swap finished in 0.013709 seconds
 
 Running LR for detailed placement...
 
 Running LR for detailed placement...
 
 Running ISM for detailed placement...
- iteration: 0 HPWL=19723312 (-0.033%)(-0.033%)   time: 0 sec   all: 0 sec
+ iteration: 0 HPWL=20324457 (-0.036%)(-0.036%)   time: 0 sec   all: 0 sec
 Consider independent cells and enabled double window now
- iteration: 1 HPWL=19699863 (-0.119%)(-0.152%)   time: 0 sec   all: 0 sec
-ISM result: Pin-to-pin HPWL= 19699863.000000 (-0.152312%)
-ISM total runtime:0.056330
+ iteration: 1 HPWL=20312908 (-0.057%)(-0.093%)   time: 0 sec   all: 0 sec
+ISM result: Pin-to-pin HPWL= 20312908.000000 (-0.092648%)
+ISM total runtime:0.106572
 
 Running Global Swap for detailed placement...
-Found position for 34 among all 4475 cells
-Found position for 6 among all 4475 cells
+Found position for 62 among all 7809 cells
+Found position for 10 among all 7809 cells
 
-Global Swap finished in 0.007074 seconds
-
-Running LR for detailed placement...
-
-Running LR for detailed placement...
-
-Running ISM for detailed placement...
- iteration: 0 HPWL=19665040 (0.016%)(0.016%)   time: 0 sec   all: 0 sec
-Consider independent cells and enabled double window now
- iteration: 1 HPWL=19642974 (-0.112%)(-0.097%)   time: 0 sec   all: 0 sec
-ISM result: Pin-to-pin HPWL= 19642974.000000 (-0.096643%)
-ISM total runtime:0.055226
-
-Running Global Swap for detailed placement...
-Found position for 21 among all 4475 cells
-Found position for 4 among all 4475 cells
-
-Global Swap finished in 0.007052 seconds
-
-Running LR for detailed placement...
-
-Running LR for detailed placement...
-
-Running ISM for detailed placement...
- iteration: 0 HPWL=19619945 (-0.009%)(-0.009%)   time: 0 sec   all: 0 sec
-Consider independent cells and enabled double window now
- iteration: 1 HPWL=19605807 (-0.072%)(-0.081%)   time: 0 sec   all: 0 sec
-ISM result: Pin-to-pin HPWL= 19605807.000000 (-0.081135%)
-ISM total runtime:0.049489
-
-Running Global Swap for detailed placement...
-Found position for 14 among all 4475 cells
-Found position for 2 among all 4475 cells
-
-Global Swap finished in 0.008603 seconds
-
-Running LR for detailed placement...
-
-Running LR for detailed placement...
-
-Running ISM for detailed placement...
- iteration: 0 HPWL=19597160 (0.038%)(0.038%)   time: 0 sec   all: 0 sec
-Consider independent cells and enabled double window now
- iteration: 1 HPWL=19591520 (-0.029%)(0.009%)   time: 0 sec   all: 0 sec
-ISM result: Pin-to-pin HPWL= 19591520.000000 (0.008760%)
-ISM total runtime:0.051381
-
-Running Global Swap for detailed placement...
-Found position for 12 among all 4475 cells
-Found position for 3 among all 4475 cells
-
-Global Swap finished in 0.007242 seconds
-HPWL after detailed placement: 19588035
+Global Swap finished in 0.012239 seconds
+HPWL after detailed placement: 20303769
 INFO: BMP HAS BEEN SAVED: Detailed placement result.bmp
-Output AUX file:./eplace_solution/aes_buf/aes_buf-eDP.aux
-Output Nodes file:./eplace_solution/aes_buf/aes_buf-eDP.nodes
-Output Nets file:./eplace_solution/aes_buf/aes_buf-eDP.nets
-Output SCL file:./eplace_solution/aes_buf/aes_buf-eDP.scl
-Output PL file:./eplace_solution/aes_buf/aes_buf-eDP.pl
+Output AUX file:./eplace_solution-eDP.aux
+Output Nodes file:./eplace_solution-eDP.nodes
+Output Nets file:./eplace_solution-eDP.nets
+Output SCL file:./eplace_solution-eDP.scl
+Output PL file:./eplace_solution-eDP.pl
+isTiming
+[INFO] Running OpenROAD STA...
+[INFO] STA completed. Report generated: ./eplace_sta_report.rpt
+Total negative slack count: 687564
+WNS: -190.110001
+TNS: -124370.796875
+P2P weights updated based on STA report.

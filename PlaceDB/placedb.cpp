@@ -78,6 +78,14 @@ void PlaceDB::addNet(Net *net)
     dbNets[net->idx] = net;
 }
 
+void PlaceDB::resetNetTimingCoefficient()
+{
+    for (Net *net : dbNets)
+    {
+        net->timingCoefficient = 1;
+    }
+}
+
 int PlaceDB::addPin(Module *masterModule, Net *masterNet, string pinName, float xOffset, float yOffset)
 {
     Pin* newPin = new Pin(masterModule, masterNet, xOffset, yOffset);

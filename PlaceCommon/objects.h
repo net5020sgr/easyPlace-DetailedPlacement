@@ -27,8 +27,17 @@ public:
         init();
         idx = index;
     }
+    Net(int index, string _name)
+    {
+        init();
+        idx = index;
+        name = _name;
+    }
     int idx;
+    string name;
     vector<Pin *> netPins;
+
+    double timingCoefficient;
     //! boundPin pointers, used for quadratic placement utilizing bound2bound net model
     Pin *boundPinXmin;
     Pin *boundPinXmax;
@@ -54,11 +63,15 @@ public:
         denominatorMin_WA.SetZero();
         numeratorMax_WA.SetZero();
         denominatorMin_WA.SetZero();
+        timingCoefficient = 1;
     }
     void addPin(Pin *);
     int getPinCount();
     void allocateMemoryForPin(int);
     double calcNetHPWL();
+    double calcNetTimingHPWL() { 
+        return timingCoefficient * calcNetHPWL();
+    }
     double calcBoundPin();
     void clearBoundPins();
     double calcWirelengthWA_2D(VECTOR_2D);

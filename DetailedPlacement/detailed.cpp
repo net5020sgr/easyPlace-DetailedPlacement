@@ -1430,7 +1430,13 @@ void LRSolution::recalculateCost()
         solutionCost = 0;
         for (Net *curNet : netSet)
         {
-            solutionCost += curNet->calcNetHPWL();
+            // solutionCost += curNet->calcNetHPWL();
+            if (gArg.CheckExist("TDP")){
+                solutionCost += curNet->calcNetTimingHPWL();
+            }
+            else{
+                solutionCost += curNet->calcNetHPWL();
+            }
         }
     }
 }
@@ -1490,11 +1496,19 @@ LRSolution *LRSolutionIterator::createSuccessorSolution()
             if (succesorSolution->netModuleCount[curNet->idx] == 0)
             {
                 // cout << "added\n";
-                succesorSolution->solutionCost += curNet->calcNetHPWL();
+                // succesorSolution->solutionCost += curNet->calcNetHPWL();
+
+                if (gArg.CheckExist("TDP")){
+                    succesorSolution->solutionCost += curNet->calcNetTimingHPWL();
+                }
+                else{
+                    succesorSolution->solutionCost += curNet->calcNetHPWL();
+                }
+
             }
             else
             {
-                // cout << "value is: " << succesorSolution->netModuleCount[curNet] << endl;
+                // cout << "value is: " << succesorSolution->netModuleCount[curNet->idx] << endl;
             }
         }
     }

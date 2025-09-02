@@ -9,9 +9,9 @@ foreach lef [glob "./ASAP7/LEF/*.lef"] {
     read_lef $lef
 }
 puts "reading def.."
-read_def ./eLP_result.def
+read_def ./eDP_result.def
 
-read_sdc ./after_buffered/aes/aes_buf.sdc
+read_sdc ./after_buffered/ac97_top/ac97_top_buf.sdc
 source ./ASAP7/setRC.tcl
 
 estimate_parasitics -placement

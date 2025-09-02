@@ -8,6 +8,7 @@ aes/
 ac97_top/
 des/
 *.zip
+testcase/
 
 # Large files to ignore
 ariane/ariane.spef
